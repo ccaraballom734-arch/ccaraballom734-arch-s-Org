@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>CeramicSpeed - Buscador de Compatibilidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { surface: '#000000', 'surface-low': '#1c1b1b', 'surface-bright': '#3a3939' },
+                    fontFamily: { hanken: ['system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        html,body { background:#000000; min-height:100%; color: #ffffff; }
+        button, select { -webkit-tap-highlight-color: transparent; }
+        .brand-logo-text { font-family: monospace, sans-serif; font-weight: 900; letter-spacing: 0.15em; }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='%23999999'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.25rem;
+        }
+        select option { background-color: #1c1b1b; color: white; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #131313; }
+        ::-webkit-scrollbar-thumb { background: #3a3939; border-radius: 3px; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-surface text-white font-hanken antialiased">
+    <div id="app" class="min-h-screen"></div>
+
+    <script>
+        const DATA = {"bicis": [{"marca": "3T", "anio": "2016", "modalidad": "gravel", "referencia": "Exploro", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2017", "modalidad": "ruta", "referencia": "Strada", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2017", "modalidad": "gravel", "referencia": "Exploro", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2018", "modalidad": "ruta", "referencia": "Strada Team", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2018", "modalidad": "gravel", "referencia": "Exploro", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2019", "modalidad": "ruta", "referencia": "Strada Due", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2019", "modalidad": "gravel", "referencia": "Exploro RaceMax", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2020", "modalidad": "ruta", "referencia": "Strada", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2020", "modalidad": "gravel", "referencia": "Exploro RaceMax", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2021", "modalidad": "ruta", "referencia": "Strada", "medida": "BB386 EVO"}, {"marca": "3T", "anio": "2021", "modalidad": "gravel", "referencia": "Exploro Ultra", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2022", "modalidad": "ruta", "referencia": "Strada ICR", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2022", "modalidad": "gravel", "referencia": "Exploro Ultra", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2023", "modalidad": "ruta", "referencia": "Strada ICR", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2023", "modalidad": "gravel", "referencia": "Exploro Ultra", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2024", "modalidad": "ruta", "referencia": "Strada ICR", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2025", "modalidad": "ruta", "referencia": "Strada", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2025", "modalidad": "gravel", "referencia": "Exploro", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2026", "modalidad": "ruta", "referencia": "Strada", "medida": "BSA/68 Threaded"}, {"marca": "3T", "anio": "2026", "modalidad": "gravel", "referencia": "Exploro", "medida": "BSA/68 Threaded"}, {"marca": "Berria", "anio": "2016", "modalidad": "ruta", "referencia": "Belador", "medida": "BB86"}, {"marca": "Berria", "anio": "2017", "modalidad": "ruta", "referencia": "Belador", "medida": "BB86"}, {"marca": "Berria", "anio": "2018", "modalidad": "ruta", "referencia": "Belador 4", "medida": "BB86"}, {"marca": "Berria", "anio": "2018", "modalidad": "gravel", "referencia": "Grava", "medida": "BB86"}, {"marca": "Berria", "anio": "2019", "modalidad": "ruta", "referencia": "Belador 4", "medida": "BB86"}, {"marca": "Berria", "anio": "2019", "modalidad": "gravel", "referencia": "Grava", "medida": "BB86"}, {"marca": "Berria", "anio": "2020", "modalidad": "ruta", "referencia": "Belador 5", "medida": "BB86"}, {"marca": "Berria", "anio": "2020", "modalidad": "gravel", "referencia": "Grava", "medida": "BB86"}, {"marca": "Berria", "anio": "2021", "modalidad": "ruta", "referencia": "Belador 5", "medida": "BB86"}, {"marca": "Berria", "anio": "2021", "modalidad": "gravel", "referencia": "Grava", "medida": "BB86"}, {"marca": "Berria", "anio": "2022", "modalidad": "ruta", "referencia": "Belador 6", "medida": "BB86"}, {"marca": "Berria", "anio": "2022", "modalidad": "gravel", "referencia": "Belador Allroad", "medida": "BB86"}, {"marca": "Berria", "anio": "2023", "modalidad": "ruta", "referencia": "Belador 6", "medida": "BB86"}, {"marca": "Berria", "anio": "2023", "modalidad": "gravel", "referencia": "Belador Allroad", "medida": "BB86"}, {"marca": "Berria", "anio": "2024", "modalidad": "ruta", "referencia": "Belador 6", "medida": "BB86"}, {"marca": "Berria", "anio": "2024", "modalidad": "gravel", "referencia": "Belador Allroad", "medida": "BB86"}, {"marca": "Berria", "anio": "2025", "modalidad": "ruta", "referencia": "Belador", "medida": "BB86"}, {"marca": "Berria", "anio": "2025", "modalidad": "gravel", "referencia": "Belador Allroad", "medida": "BB86"}, {"marca": "Berria", "anio": "2026", "modalidad": "ruta", "referencia": "Belador", "medida": "BB86"}, {"marca": "Berria", "anio": "2026", "modalidad": "gravel", "referencia": "Belador Allroad", "medida": "BB86"}, {"marca": "Berria", "anio": "2016", "modalidad": "montaña", "referencia": "Bravo", "medida": "BB92"}, {"marca": "Berria", "anio": "2017", "modalidad": "montaña", "referencia": "Bravo", "medida": "BB92"}, {"marca": "Berria", "anio": "2018", "modalidad": "montaña", "referencia": "Mako", "medida": "BB92"}, {"marca": "Berria", "anio": "2019", "modalidad": "montaña", "referencia": "Mako", "medida": "BB92"}, {"marca": "Berria", "anio": "2020", "modalidad": "montaña", "referencia": "Mako", "medida": "BB92"}, {"marca": "Berria", "anio": "2021", "modalidad": "montaña", "referencia": "Mako V2", "medida": "BB92"}, {"marca": "Berria", "anio": "2022", "modalidad": "montaña", "referencia": "Mako BR", "medida": "BSA/73 Threaded"}, {"marca": "Berria", "anio": "2023", "modalidad": "montaña", "referencia": "Mako BR", "medida": "BSA/73 Threaded"}, {"marca": "Berria", "anio": "2024", "modalidad": "montaña", "referencia": "Mako BR", "medida": "BSA/73 Threaded"}, {"marca": "Berria", "anio": "2025", "modalidad": "montaña", "referencia": "Mako", "medida": "BSA/73 Threaded"}, {"marca": "Berria", "anio": "2026", "modalidad": "montaña", "referencia": "Mako", "medida": "BSA/73 Threaded"}, {"marca": "Bianchi", "anio": "2016", "modalidad": "ruta", "referencia": "Oltre XR4", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2016", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2016", "modalidad": "gravel", "referencia": "Zolder (CX)", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2017", "modalidad": "ruta", "referencia": "Oltre XR4", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2017", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2017", "modalidad": "gravel", "referencia": "Zolder", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2018", "modalidad": "ruta", "referencia": "Oltre XR4 Disc", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2018", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2018", "modalidad": "gravel", "referencia": "Zolder", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2019", "modalidad": "ruta", "referencia": "Oltre XR4 Disc", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2019", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2019", "modalidad": "gravel", "referencia": "Arkadis", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2020", "modalidad": "ruta", "referencia": "Oltre XR4 Disc", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2020", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2020", "modalidad": "gravel", "referencia": "Arkadis", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2021", "modalidad": "ruta", "referencia": "Specialissima Disc", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2021", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2021", "modalidad": "gravel", "referencia": "Impulso", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2022", "modalidad": "ruta", "referencia": "Oltre RC (Gen 5)", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2022", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2022", "modalidad": "gravel", "referencia": "Impulso Pro", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2023", "modalidad": "ruta", "referencia": "Oltre RC / Specialissima RC", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2023", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2023", "modalidad": "gravel", "referencia": "Impulso RC", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2024", "modalidad": "ruta", "referencia": "Oltre RC / Specialissima RC", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2024", "modalidad": "tt", "referencia": "Aquila CV", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2024", "modalidad": "gravel", "referencia": "Impulso RC", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2025", "modalidad": "ruta", "referencia": "Oltre RC", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2025", "modalidad": "tt", "referencia": "Aquila", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2025", "modalidad": "gravel", "referencia": "Impulso", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2026", "modalidad": "ruta", "referencia": "Oltre RC", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2026", "modalidad": "tt", "referencia": "Aquila", "medida": "BB86"}, {"marca": "Bianchi", "anio": "2026", "modalidad": "gravel", "referencia": "Impulso", "medida": "BB86"}, {"marca": "BMC", "anio": "2023", "modalidad": "ruta", "referencia": "Teammachine R", "medida": "BB86"}, {"marca": "Cannondale", "anio": "2023", "modalidad": "ruta", "referencia": "SuperSix EVO Gen 4", "medida": "BSA/68 Threaded"}, {"marca": "Canyon", "anio": "2024", "modalidad": "ruta", "referencia": "Aeroad Gen 4", "medida": "BB86"}, {"marca": "Pinarello", "anio": "2024", "modalidad": "ruta", "referencia": "Dogma F (Current)", "medida": "ITA Threaded"}, {"marca": "Specialized", "anio": "2024", "modalidad": "ruta", "referencia": "Tarmac SL8", "medida": "BSA/68 Threaded"}, {"marca": "Trek", "anio": "2024", "modalidad": "ruta", "referencia": "Madone Gen 8", "medida": "T47/86 Threaded"}], "bb": [{"nombre": "BB ALPHA for BSA SRAM DUB", "sku": "115549", "modalidad": "montaña", "medida": "BSA/73 Threaded", "biela": "sram dub", "biela_display": "SRAM DUB"}, {"nombre": "BB ALPHA for BB92 SRAM DUB", "sku": "115551", "modalidad": "montaña", "medida": "BB92", "biela": "sram dub", "biela_display": "SRAM DUB"}, {"nombre": "BB ALPHA for BSA Shimano", "sku": "115547", "modalidad": "montaña", "medida": "BSA/73 Threaded", "biela": "shimano", "biela_display": "Shimano"}, {"nombre": "BB ALPHA for BB86 SRAM DUB", "sku": "115420", "modalidad": "ruta", "medida": "BB86", "biela": "sram dub", "biela_display": "SRAM DUB"}, {"nombre": "BB ALPHA for BB86 Shimano", "sku": "115418", "modalidad": "ruta", "medida": "BB86", "biela": "shimano", "biela_display": "Shimano"}, {"nombre": "BB ALPHA for BSA SRAM DUB", "sku": "115414", "modalidad": "ruta", "medida": "BSA/68 Threaded", "biela": "sram dub", "biela_display": "SRAM DUB"}, {"nombre": "BB ALPHA for BSA Shimano", "sku": "115412", "modalidad": "ruta", "medida": "BSA/68 Threaded", "biela": "shimano", "biela_display": "Shimano"}], "ospw": [{"nombre": "OSPW RS 5-Spoke for Shimano 9250/8150", "sku": "113488", "modalidad": "Ruta", "tensores": ["Dura Ace RD-9250", "Ultegra RD-8150"]}, {"nombre": "OSPW RS ALPHA for SRAM RedD1/E1+ForceD1 v3", "sku": "117435", "modalidad": "Ruta", "tensores": ["RED D1", "RED E1", "FORCE D1", "FORCE D2"]}], "tmap": {"SRAM RUTA": ["RED D1", "RED E1", "FORCE D1", "FORCE D2"], "SHIMANO RUTA": ["Dura Ace RD-9250", "Ultegra RD-8150"]}};
+
+        const BICIS = DATA.bicis;
+        const BB_LIST = DATA.bb;
+        const OSPW_LIST = DATA.ospw;
+        const TENSOR_MAP = DATA.tmap;
+        const OSPW_BRAND_MOD_MAP = {
+            "SRAM|Ruta": "SRAM RUTA",
+            "Shimano|Ruta": "SHIMANO RUTA"
+        };
+
+        const S = {
+            screen: 'home', flow: null, step: 1,
+            bbTipo: null, bbMarca: null, bbAnio: null, bbModelo: null,
+            bbMedida: null, bbBiela: null, bbResultado: null,
+            ospwMarca: null, ospwModalidad: null, ospwRef: null, ospwResultados: null,
+        };
+
+        function tipoNormFromLabel(label){
+            const map = { 'Ruta / TT': 'ruta', 'Montaña': 'montaña', 'Gravel': 'gravel', 'Ruta': 'ruta' };
+            return map[label] || label.toLowerCase();
+        }
+        function modalidadesForTipo(tipoNorm){
+            const m = { 'ruta': ['ruta','tt'], 'montaña': ['montaña'], 'gravel': ['gravel'] };
+            return m[tipoNorm] || [];
+        }
+
+        function getMarcas(tipoLabel){
+            const tipoNorm = tipoNormFromLabel(tipoLabel);
+            const normList = modalidadesForTipo(tipoNorm);
+            return [...new Set(BICIS.filter(b=> normList.includes(b.modalidad) && b.marca).map(b=>b.marca))].sort();
+        }
+        function getAnios(tipoLabel, marca){
+            const tipoNorm = tipoNormFromLabel(tipoLabel);
+            const normList = modalidadesForTipo(tipoNorm);
+            return [...new Set(BICIS.filter(b=> normList.includes(b.modalidad) && b.marca===marca && /^\d+$/.test(b.anio)).map(b=>parseInt(b.anio)))].sort((a,b)=>b-a);
+        }
+        function getModelos(tipoLabel, marca, anio){
+            const tipoNorm = tipoNormFromLabel(tipoLabel);
+            const normList = modalidadesForTipo(tipoNorm);
+            return [...new Set(BICIS.filter(b=> normList.includes(b.modalidad) && b.marca===marca && b.anio===String(anio) && b.referencia).map(b=>b.referencia))].sort();
+        }
+        function getMedida(tipoLabel, marca, anio, modelo){
+            const tipoNorm = tipoNormFromLabel(tipoLabel);
+            const normList = modalidadesForTipo(tipoNorm);
+            const found = BICIS.find(b=> normList.includes(b.modalidad) && b.marca===marca && b.anio===String(anio) && b.referencia===modelo);
+            return found ? found.medida : null;
+        }
+        function getBielas(tipoLabel, medida){
+            const tipoNorm = tipoNormFromLabel(tipoLabel);
+            const normList = modalidadesForTipo(tipoNorm);
+            return [...new Set(BB_LIST.filter(b=> normList.includes(b.modalidad) && b.medida===medida && b.biela).map(b=>b.biela_display))].sort();
+        }
+        function getBBResultado(tipoLabel, medida, biela){
+            const tipoNorm = tipoNormFromLabel(tipoLabel);
+            const normList = modalidadesForTipo(tipoNorm);
+            const bLower = biela.toLowerCase();
+            const found = BB_LIST.find(b=> normList.includes(b.modalidad) && b.medida===medida && b.biela===bLower);
+            if(found){
+                return { nombre: found.nombre, sku: found.sku, medida: found.medida, biela: found.biela_display, modalidad: tipoLabel };
+            }
+            return null;
+        }
+        function getOSPWMODALIDADES(marca){
+            const map = { "SRAM": ["Ruta"], "Shimano": ["Ruta"] };
+            return map[marca]||[];
+        }
+        function getReferencias(marca, modalidad){
+            const key = OSPW_BRAND_MOD_MAP[`${marca}|${modalidad}`];
+            if(!key) return [];
+            return TENSOR_MAP[key]||[];
+        }
+        function buscarOSPW(ref){
+            return OSPW_LIST.filter(o=> o.tensores.includes(ref));
+        }
+
+        function render(){
+            const app=document.getElementById('app');
+            if(S.screen==='home') app.innerHTML=homeHTML();
+            else app.innerHTML=flowHTML();
+        }
+        function goHome(){ S.screen='home'; S.flow=null; render(); }
+        function goBack(){ if(S.step>1){ S.step--; render(); } else { goHome(); } }
+        function resetFlow(f){ S.flow=f; S.step=1; if(f==='bb'){ S.bbTipo=null; S.bbMarca=null; S.bbAnio=null; S.bbModelo=null; S.bbMedida=null; S.bbBiela=null; S.bbResultado=null; } else { S.ospwMarca=null; S.ospwModalidad=null; S.ospwRef=null; S.ospwResultados=null; } render(); }
+
+        const LogoSVG = `<div class="brand-logo-text text-xl sm:text-2xl text-white tracking-widest uppercase font-black py-2 border-b-2 border-red-600 inline-block">CERAMICSPEED</div>`;
+
+        function homeHTML(){
+            return `<div class="min-h-screen flex flex-col items-center px-6 py-10 pb-10 fade-in">
+                <header class="mb-8"><div class="text-center">${LogoSVG}</div></header>
+                <div class="text-center mb-10">
+                    <h2 class="text-2xl font-bold mb-2 uppercase tracking-tight">Buscador de Compatibilidad</h2>
+                    <p class="text-gray-400 text-sm">Selecciona el componente que deseas consultar</p>
+                </div>
+                <div class="w-full max-w-md space-y-6">
+                    <div class="bg-surface-low border border-surface-bright rounded-2xl p-6 flex flex-col items-center cursor-pointer hover:border-white/50 transition-all" onclick="startFlow('bb')">
+                        <div class="w-24 h-24 bg-zinc-800 rounded-full flex items-center justify-center text-4xl mb-4 border border-zinc-700">⚙️</div>
+                        <h2 class="text-xl font-bold mb-1 uppercase tracking-wide">BOTTOM BRACKET</h2>
+                        <p class="text-xs text-gray-400 mb-4 text-center">Encuentra el BB compatible por bici y biela</p>
+                        <button class="w-full py-4 bg-white text-black font-bold rounded-full uppercase tracking-wider text-sm">Explorar Compatibilidad</button>
+                    </div>
+                    <div class="bg-surface-low border border-surface-bright rounded-2xl p-6 flex flex-col items-center cursor-pointer hover:border-white/50 transition-all" onclick="startFlow('ospw')">
+                        <div class="w-24 h-24 bg-zinc-800 rounded-full flex items-center justify-center text-4xl mb-4 border border-zinc-700">🚲</div>
+                        <h2 class="text-xl font-bold mb-1 uppercase tracking-wide">OSPW</h2>
+                        <p class="text-xs text-gray-400 mb-4 text-center">Sistema de roldanas de baja fricción</p>
+                        <button class="w-full py-4 bg-white text-black font-bold rounded-full uppercase tracking-wider text-sm">Explorar Compatibilidad</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+        function startFlow(f){ S.flow=f; S.step=1; S.screen='flow'; if(f==='bb'){ S.bbTipo=null; S.bbMarca=null; S.bbAnio=null; S.bbModelo=null; S.bbMedida=null; S.bbBiela=null; S.bbResultado=null; } else { S.ospwMarca=null; S.ospwModalidad=null; S.ospwRef=null; S.ospwResultados=null; } render(); }
+        function flowHTML(){ if(S.flow==='bb'){ if(S.step===1) return bb1HTML(); if(S.step===2) return bb2HTML(); if(S.step===3) return bb3HTML(); } if(S.flow==='ospw'){ if(S.step===1) return ospw1HTML(); if(S.step===2) return ospw2HTML(); if(S.step===3) return ospw3HTML(); } return homeHTML(); }
+
+        function bb1HTML(){
+            const marcas = S.bbTipo ? getMarcas(S.bbTipo) : [];
+            const anios = (S.bbTipo && S.bbMarca) ? getAnios(S.bbTipo, S.bbMarca) : [];
+            const modelos = (S.bbMarca && S.bbAnio) ? getModelos(S.bbTipo, S.bbMarca, S.bbAnio) : [];
+            return `<div class="min-h-screen px-6 py-8 fade-in">
+                <div class="flex justify-between items-center mb-6 max-w-md mx-auto w-full">
+                    <button class="p-2 hover:text-gray-300" onclick="goBack()">← Volver</button>
+                    <span class="text-gray-500 text-sm font-bold">1/3</span>
+                </div>
+                <header class="flex flex-col items-center mb-8">
+                    ${LogoSVG}
+                    <h2 class="text-lg font-bold uppercase mt-3">Configuración de Bicicleta</h2>
+                </header>
+                <section class="mb-6 max-w-md mx-auto w-full">
+                    <label class="block text-center text-xs font-bold mb-4 uppercase text-gray-400 tracking-wider">SELECCIONA EL TIPO DE BICICLETA</label>
+                    <div class="flex bg-surface-low rounded-full p-1 border border-surface-bright">
+                        <button class="flex-1 py-3 rounded-full font-bold text-xs transition-all tracking-wider ${S.bbTipo==='Ruta / TT' ? 'bg-white text-black shadow-sm' : 'text-gray-400 hover:text-white'}" onclick="selBBTipo('Ruta / TT')">RUTA / TT</button>
+                        <button class="flex-1 py-3 rounded-full font-bold text-xs transition-all tracking-wider ${S.bbTipo==='Montaña' ? 'bg-white text-black shadow-sm' : 'text-gray-400 hover:text-white'}" onclick="selBBTipo('Montaña')">MONTAÑA</button>
+                        <button class="flex-1 py-3 rounded-full font-bold text-xs transition-all tracking-wider ${S.bbTipo==='Gravel' ? 'bg-white text-black shadow-sm' : 'text-gray-400 hover:text-white'}" onclick="selBBTipo('Gravel')">GRAVEL</button>
+                    </div>
+                </section>
+                ${S.bbTipo ? `
+                <div class="space-y-4 mb-8 max-w-md mx-auto w-full">
+                    <div><label class="block text-center text-xs mb-2 text-gray-400 uppercase">Marca de la Bicicleta</label>
+                        <select id="bbMarcaSel" class="w-full bg-surface-low border border-surface-bright rounded-xl p-4 text-white font-bold appearance-none cursor-pointer text-sm" onchange="selBBMarca(this.value)">
+                            <option value="">Seleccionar Marca (${marcas.length})</option>
+                            ${marcas.map(m=>`<option value="${m}" ${S.bbMarca===m?'selected':''}>${m}</option>`).join('')}
+                        </select></div>
+                    ${S.bbMarca ? `<div><label class="block text-center text-xs mb-2 text-gray-400 uppercase">Año del Modelo</label>
+                        <select class="w-full bg-surface-low border border-surface-bright rounded-xl p-4 text-white font-bold appearance-none cursor-pointer text-sm" onchange="selBBAnio(this.value)">
+                            <option value="">Seleccionar Año (${anios.length})</option>
+                            ${anios.map(a=>`<option value="${a}" ${String(S.bbAnio)===String(a)?'selected':''}>${a}</option>`).join('')}
+                        </select></div>` : ''}
+                    ${S.bbAnio ? `<div><label class="block text-center text-xs mb-2 text-gray-400 uppercase">Modelo / Referencia</label>
+                        <select class="w-full bg-surface-low border border-surface-bright rounded-xl p-4 text-white font-bold appearance-none cursor-pointer text-sm" onchange="selBBModelo(this.value)">
+                            <option value="">Seleccionar Modelo (${modelos.length})</option>
+                            ${modelos.map(m=>`<option value="${m}" ${S.bbModelo===m?'selected':''}>${m}</option>`).join('')}
+                        </select></div>` : ''}
+                    ${S.bbMedida ? `<div class="bg-surface-low border border-surface-bright rounded-xl p-4 text-center">
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Estándar de Caja Detectado</span>
+                        <p class="text-lg font-bold mt-1 text-emerald-400">${S.bbMedida}</p></div>` : ''}
+                </div>
+                ${S.bbMedida ? `<div class="max-w-md mx-auto w-full"><button class="w-full py-5 bg-white text-black font-bold rounded-full uppercase tracking-wider text-sm" onclick="S.step=2;render();">Siguiente → Marca de Biela</button></div>` : ''}
+                ` : `<div class="text-center text-gray-500 text-sm mt-12 max-w-md mx-auto">Selecciona un tipo de bicicleta para explorar modelos</div>`}
+            </div>`;
+        }
+        function selBBTipo(t){ S.bbTipo=t; S.bbMarca=null; S.bbAnio=null; S.bbModelo=null; S.bbMedida=null; render(); }
+        function selBBMarca(v){ S.bbMarca=v; S.bbAnio=null; S.bbModelo=null; S.bbMedida=null; render(); }
+        function selBBAnio(v){ S.bbAnio=v; S.bbModelo=null; S.bbMedida=null; render(); }
+        function selBBModelo(v){
+            S.bbModelo=v; S.bbMedida=null;
+            if(v){ S.bbMedida=getMedida(S.bbTipo, S.bbMarca, S.bbAnio, v); }
+            render();
+        }
+
+        function bb2HTML(){
+            const bielas = getBielas(S.bbTipo, S.bbMedida);
+            return `<div class="min-h-screen px-6 py-8 fade-in">
+                <div class="w-full flex justify-between items-center mb-8 max-w-md mx-auto">
+                    <button class="p-2 hover:text-gray-300" onclick="goBack()">← Volver</button>
+                    <span class="text-gray-500 text-sm font-bold">2/3</span>
+                </div>
+                <header class="text-center mb-6">
+                    ${LogoSVG}
+                    <h1 class="text-lg font-bold uppercase mt-3">Marca de Biela</h1>
+                    <p class="text-xs text-gray-400 mt-1 px-4">Estándar detectado: <strong class="text-white">${S.bbMedida}</strong> • ${bielas.length} opciones</p>
+                </header>
+                <div class="grid grid-cols-2 gap-4 w-full max-w-md mx-auto mb-8">
+                    ${bielas.map(b=>`<div class="bg-surface-low border border-surface-bright rounded-2xl p-6 flex flex-col items-center hover:border-white transition-colors cursor-pointer group" onclick="selBBBiela('${b.replace(/'/g,"\\'")}')">
+                        <div class="text-xl font-bold mb-2">${b}</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Seleccionar</span>
+                    </div>`).join('')}
+                </div>
+                ${bielas.length===0 ? `<p class="text-center text-gray-500 text-sm">No hay bielas compatibles registradas para ${S.bbMedida}</p>` : ''}
+            </div>`;
+        }
+        function selBBBiela(b){
+            S.bbBiela=b;
+            const res = getBBResultado(S.bbTipo, S.bbMedida, b);
+            if(res){ S.bbResultado=res; S.step=3; render(); }
+            else { alert('No se encontró compatibilidad'); }
+        }
+
+        function bb3HTML(){
+            const r=S.bbResultado;
+            if(!r) return `<div class="min-h-screen flex items-center justify-center"><p class="text-gray-400">Error</p></div>`;
+            return `<div class="min-h-screen bg-black px-6 py-8 flex flex-col items-center fade-in">
+                <div class="w-full flex items-center justify-center relative mb-8 max-w-md">
+                    <button class="absolute left-0 p-2 hover:text-gray-300" onclick="S.step=2;render();">← Volver</button>
+                    ${LogoSVG}
+                </div>
+                <div class="w-full max-w-md bg-surface-low border border-surface-bright rounded-2xl p-6 mb-6 flex flex-col items-center">
+                    <span class="bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest font-bold">Match Perfecto</span>
+                    <div class="w-24 h-24 bg-zinc-800 rounded-full flex items-center justify-center text-4xl mb-6 border border-zinc-700">⚙️</div>
+                    <div class="bg-black border border-white/20 rounded-xl p-4 w-full text-center mb-4">
+                        <span class="block text-[10px] text-gray-400 uppercase font-bold mb-1">SKU Identificado</span>
+                        <span class="text-xl font-bold tracking-widest text-emerald-400">${r.sku}</span>
+                    </div>
+                    <h2 class="text-center font-bold text-base px-4 leading-tight">${r.nombre}</h2>
+                </div>
+                <div class="w-full max-w-md bg-surface-low rounded-2xl p-6 mb-8 border border-zinc-800">
+                    <h3 class="text-center text-[10px] font-bold uppercase text-gray-400 mb-6 tracking-widest">Especificaciones Técnicas</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between border-b border-white/10 pb-3"><span class="text-gray-400">Tecnología</span><span class="font-bold">Alpha</span></div>
+                        <div class="flex justify-between border-b border-white/10 pb-3"><span class="text-gray-400">Estándar</span><span class="font-bold">${r.medida}</span></div>
+                        <div class="flex justify-between border-b border-white/10 pb-3"><span class="text-gray-400">Biela</span><span class="font-bold">${r.biela}</span></div>
+                        <div class="flex justify-between border-b border-white/10 pb-3"><span class="text-gray-400">Modalidad</span><span class="font-bold">${r.modalidad}</span></div>
+                        <div class="flex justify-between pt-1"><span class="text-gray-400">Garantía</span><span class="font-bold">Lifetime</span></div>
+                    </div>
+                </div>
+                <div class="w-full max-w-md space-y-3">
+                    <button class="w-full py-5 bg-white text-black font-bold rounded-full uppercase tracking-wider text-sm" onclick="goHome()">Volver al Inicio</button>
+                    <button class="w-full py-4 text-gray-400 font-bold uppercase text-xs hover:text-white" onclick="resetFlow('bb')">Realizar otra búsqueda</button>
+                </div>
+            </div>`;
+        }
+
+        function ospw1HTML(){
+            const marcas=['SRAM','Shimano'];
+            return `<div class="min-h-screen px-6 py-8 fade-in flex flex-col items-center">
+                <div class="w-full flex justify-between items-center mb-8 max-w-md">
+                    <button class="p-2 hover:text-gray-300" onclick="goBack()">← Volver</button>
+                    <span class="text-gray-500 text-sm font-bold">1/3</span>
+                </div>
+                <header class="text-center mb-8">
+                    ${LogoSVG}
+                    <div class="w-20 h-24 my-4 bg-zinc-800 rounded-2xl mx-auto flex items-center justify-center text-4xl border border-zinc-700">🚲</div>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[.2em]">OverSized Pulley Wheel System</p>
+                    <h1 class="text-xl font-bold mt-2">Optimiza tu transmisión.</h1>
+                    <p class="text-xs text-gray-400 mt-2">Selecciona la marca de tu tensor</p>
+                </header>
+                <div class="w-full max-w-md space-y-4">
+                    ${marcas.map(b=>`<div class="bg-surface-low border border-surface-bright rounded-2xl p-8 flex flex-col items-center hover:border-white transition-colors cursor-pointer" onclick="selOSPWMarca('${b}')">
+                        <div class="text-xl font-black tracking-widest mb-1 text-gray-200">${b.toUpperCase()}</div>
+                        <span class="text-[10px] text-gray-400 uppercase">${getOSPWMODALIDADES(b).length} modalidades</span>
+                    </div>`).join('')}
+                </div>
+            </div>`;
+        }
+        function selOSPWMarca(marca){ S.ospwMarca=marca; S.ospwModalidad=null; S.ospwRef=null; S.ospwResultados=null; S.step=2; render(); }
+
+        function ospw2HTML(){
+            const mods=getOSPWMODALIDADES(S.ospwMarca);
+            return `<div class="min-h-screen px-6 py-8 fade-in flex flex-col items-center">
+                <div class="w-full flex justify-between items-center mb-8 max-w-md">
+                    <button class="p-2 hover:text-gray-300" onclick="goBack()">← Volver</button>
+                    <span class="text-gray-500 text-sm font-bold">2/3</span>
+                </div>
+                <header class="text-center mb-8">
+                    ${LogoSVG}
+                    <h1 class="text-lg font-bold uppercase mb-2 mt-3">Seleccionar Modalidad</h1>
+                    <p class="text-xs text-gray-400">Marca: <strong class="text-white">${S.ospwMarca}</strong></p>
+                </header>
+                <div class="w-full max-w-md space-y-4">
+                    ${mods.map(m=>`<div class="bg-surface-low border border-surface-bright rounded-2xl p-8 flex flex-col items-center hover:border-white transition-colors cursor-pointer" onclick="selOSPWModalidad('${m}')">
+                        <span class="text-lg font-bold uppercase tracking-wider">${m}</span>
+                        <span class="text-[10px] text-gray-400 mt-1">${getReferencias(S.ospwMarca,m).length} tensores</span>
+                    </div>`).join('')}
+                </div>
+            </div>`;
+        }
+        function selOSPWModalidad(mod){ S.ospwModalidad=mod; S.ospwRef=null; S.ospwResultados=null; S.step=3; render(); }
+
+        function ospw3HTML(){
+            const refs=getReferencias(S.ospwMarca, S.ospwModalidad);
+            const hasResults=S.ospwResultados && S.ospwResultados.length>0;
+            let resHTML='';
+            if(S.ospwResultados && S.ospwResultados.length>0){
+                const items=S.ospwResultados.map(r=>`<div class="bg-surface-low border border-surface-bright rounded-2xl p-6 mb-4 flex flex-col items-center">
+                    <span class="bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] px-4 py-1.5 rounded-full mb-4 uppercase tracking-widest font-bold">Sistema Compatible</span>
+                    <div class="w-20 h-20 bg-zinc-800 rounded-full flex items-center justify-center text-3xl mb-4 border border-zinc-700">🚲</div>
+                    <div class="bg-black border border-white/20 rounded-xl p-3 w-full text-center mb-3">
+                        <span class="block text-[10px] text-gray-400 uppercase font-bold mb-1">SKU</span>
+                        <span class="text-lg font-bold tracking-widest text-emerald-400">${r.sku}</span>
+                    </div>
+                    <h3 class="text-center font-bold text-sm px-2 leading-tight">${r.nombre}</h3>
+                    <div class="mt-3 text-[10px] text-gray-400 text-center">Tensores: ${r.tensores.join(' • ')}</div>
+                    <div class="mt-1 text-[10px] text-gray-400">Modalidad: ${r.modalidad}</div>
+                </div>`).join('');
+                resHTML=`<div class="w-full max-w-md mt-6">
+                    <p class="text-[10px] text-gray-400 mb-4 text-center uppercase tracking-wider font-bold">${S.ospwResultados.length} OSPW compatibles encontrados:</p>
+                    ${items}
+                </div>`;
+            }
+            return `<div class="min-h-screen px-6 py-8 fade-in flex flex-col items-center">
+                <div class="w-full flex justify-between items-center mb-8 max-w-md">
+                    <button class="p-2 hover:text-gray-300" onclick="goBack()">← Volver</button>
+                    <span class="text-gray-500 text-sm font-bold">3/3</span>
+                </div>
+                <header class="text-center mb-6">
+                    ${LogoSVG}
+                    <h1 class="text-base font-bold uppercase mt-3">Configuración de OSPW</h1>
+                    <p class="text-xs text-gray-400 mt-1">${S.ospwMarca} | <strong class="text-white">${S.ospwModalidad}</strong> • ${refs.length} refs</p>
+                </header>
+                <div class="w-full max-w-md space-y-5 mb-6">
+                    <div><label class="block text-[10px] text-gray-400 mb-2 text-center uppercase tracking-wider">Marca del Tensor</label>
+                        <div class="w-full bg-surface-low border border-surface-bright rounded-xl p-4 text-white font-bold text-center text-sm">${S.ospwMarca}</div></div>
+                    <div><label class="block text-[10px] text-gray-400 mb-2 text-center uppercase tracking-wider">Referencia del Tensor</label>
+                        <select id="ospwRefSel" class="w-full bg-surface-low border border-surface-bright rounded-xl p-4 text-white font-bold appearance-none cursor-pointer text-sm" onchange="onRefChange(this.value)">
+                            <option value="">Seleccionar Referencia (${refs.length})</option>
+                            ${refs.map(r=>`<option value="${r}" ${S.ospwRef===r?'selected':''}>${r}</option>`).join('')}
+                        </select></div>
+                </div>
+                <button id="ospwBtn" class="w-full max-w-md py-5 bg-white text-black font-bold rounded-full uppercase tracking-wider text-sm ${S.ospwRef ? '' : 'hidden'}" onclick="buscarOSPWAction()">Buscar OSPW</button>
+                ${resHTML}
+                ${hasResults ? `<div class="w-full max-w-md mt-6 space-y-3">
+                    <button class="w-full py-5 bg-white text-black font-bold rounded-full uppercase tracking-wider text-sm" onclick="goHome()">Volver al Inicio</button>
+                    <button class="w-full py-4 text-gray-400 font-bold uppercase text-xs hover:text-white" onclick="resetFlow('ospw')">Realizar otra búsqueda</button>
+                </div>` : ''}
+            </div>`;
+        }
+        function onRefChange(val){ S.ospwRef=val; const btn=document.getElementById('ospwBtn'); if(btn){ if(val) btn.classList.remove('hidden'); else btn.classList.add('hidden'); } }
+        function buscarOSPWAction(){ if(!S.ospwRef) return; S.ospwResultados=buscarOSPW(S.ospwRef); render(); }
+
+        render();
+    </script>
+</body>
+</html>

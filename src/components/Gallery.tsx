@@ -183,7 +183,7 @@ export default function Gallery() {
                 {/* Detail action trigger button */}
                 <button
                   onClick={() => {
-                    if (project.demoUrl && project.demoUrl.startsWith('http')) {
+                    if (project.demoUrl && project.demoUrl !== '#') {
                       window.open(project.demoUrl, '_blank');
                     }
                     setActiveProject(project);

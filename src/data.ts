@@ -68,8 +68,8 @@ export const PROJECTS: Project[] = [
       'Manejo dinámico de variables de entorno seguras para APIs externas.',
       'Monitoreo gráfico del tiempo de build en el servidor estático.'
     ],
-    demoUrl: '#',
-    githubUrl: '#'
+    demoUrl: '/ceramicspeed.html',
+    githubUrl: 'https://github.com'
   },
   {
     id: '2',

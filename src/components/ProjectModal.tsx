@@ -78,7 +78,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Image & Main Info (Top / Left) */}
           <div className="md:col-span-6 space-y-4">
             <div className="relative rounded-2xl overflow-hidden aspect-video shadow-md border border-slate-200/50 bg-slate-900">
-              {project.demoUrl && project.demoUrl.startsWith('http') ? (
+              {project.demoUrl && project.demoUrl !== '#' ? (
                 <iframe
                   src={project.demoUrl}
                   title={project.title}
@@ -127,7 +127,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 className="flex-1 py-3 text-center bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5"
               >
                 <ExternalLink className="w-4 h-4" />
-                {project.demoUrl && project.demoUrl.startsWith('http') ? 'Ejecutar Sitio en Vivo' : 'Demo En Vivo'}
+                {project.demoUrl && project.demoUrl !== '#' ? 'Ejecutar Sitio en Vivo' : 'Demo En Vivo'}
               </a>
               <a
                 href={project.githubUrl}
