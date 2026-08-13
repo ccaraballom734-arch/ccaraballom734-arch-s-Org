@@ -36,14 +36,14 @@ export default function Navbar() {
     if (action === 'enter') {
       gsap.to(target, {
         scale: 1.05,
-        color: '#2563eb', // bright blue
+        color: '#60a5fa', // bright blue-400
         duration: 0.3,
         ease: 'power2.out'
       });
     } else {
       gsap.to(target, {
         scale: 1,
-        color: '#334155', // slate-700
+        color: '#cbd5e1', // slate-300
         duration: 0.3,
         ease: 'power2.out'
       });
@@ -73,7 +73,7 @@ export default function Navbar() {
       ref={navRef}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled 
-          ? 'py-3 bg-white/75 backdrop-blur-md border-b border-slate-200/50 shadow-sm' 
+          ? 'py-3 bg-black/80 backdrop-blur-md border-b border-zinc-800/80 shadow-md' 
           : 'py-5 bg-transparent'
       }`}
     >
@@ -84,13 +84,13 @@ export default function Navbar() {
             onClick={() => handleScrollToSegment('presentacion')}
             className="flex items-center gap-2 cursor-pointer group"
           >
-            <div className="p-2 rounded-xl bg-blue-600/10 text-blue-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+            <div className="p-2 rounded-xl bg-blue-600/20 text-blue-400 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-display font-bold text-lg tracking-tight text-slate-800 flex items-center gap-1.5">
+              <span className="font-display font-bold text-lg tracking-tight text-white flex items-center gap-1.5">
                 Camilo Caraballo
-                <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] uppercase font-semibold bg-blue-100 text-blue-800 rounded-md tracking-wider">
+                <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] uppercase font-semibold bg-blue-950/80 text-blue-300 border border-blue-800/50 rounded-md tracking-wider">
                   Diplomado IA
                 </span>
               </span>
@@ -101,32 +101,38 @@ export default function Navbar() {
           <div ref={linksRef} className="hidden md:flex items-center gap-8">
             <button
               onClick={() => handleScrollToSegment('presentacion')}
-              className="font-medium text-sm text-slate-600 hover:text-blue-600 cursor-pointer transition-colors"
+              className="font-medium text-sm text-zinc-300 hover:text-blue-400 cursor-pointer transition-colors"
             >
               Presentación
             </button>
             <button
               onClick={() => handleScrollToSegment('expectativas')}
-              className="font-medium text-sm text-slate-600 hover:text-blue-600 cursor-pointer transition-colors"
+              className="font-medium text-sm text-zinc-300 hover:text-blue-400 cursor-pointer transition-colors"
             >
               Expectativas
             </button>
             <button
               onClick={() => handleScrollToSegment('proyectos')}
-              className="font-medium text-sm text-slate-600 hover:text-blue-600 cursor-pointer transition-colors"
+              className="font-medium text-sm text-zinc-300 hover:text-blue-400 cursor-pointer transition-colors"
             >
               Portafolio Proyectos
             </button>
             <button
               onClick={() => handleScrollToSegment('herramientas')}
-              className="font-medium text-sm text-slate-600 hover:text-blue-600 cursor-pointer transition-colors"
+              className="font-medium text-sm text-zinc-300 hover:text-blue-400 cursor-pointer transition-colors"
             >
               Herramientas
             </button>
 
             <button
               onClick={() => handleScrollToSegment('contacto')}
-              className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all duration-200 cursor-pointer shadow-sm shadow-blue-600/10 hover:shadow-md hover:shadow-blue-600/20 hover:scale-[1.03]"
+              onMouseEnter={(e) => {
+                gsap.to(e.currentTarget, { scale: 1.08, rotate: 1, duration: 0.25, ease: 'back.out(1.7)' });
+              }}
+              onMouseLeave={(e) => {
+                gsap.to(e.currentTarget, { scale: 1, rotate: 0, duration: 0.25, ease: 'power2.out' });
+              }}
+              className="gsap-btn px-4 py-2 text-xs font-extrabold uppercase tracking-wider rounded-xl cursor-pointer shadow-md"
             >
               Contacto
             </button>
@@ -136,7 +142,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-1.5 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg text-zinc-300 hover:text-blue-400 hover:bg-zinc-900 transition-colors cursor-pointer"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -146,29 +152,29 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden glass-panel-heavy border-t border-slate-200/50 mx-4 mt-2 rounded-2xl overflow-hidden shadow-xl animate-fade-in">
+        <div className="md:hidden glass-panel-heavy border-t border-zinc-800 mx-4 mt-2 rounded-2xl overflow-hidden shadow-2xl bg-zinc-900/95 animate-fade-in">
           <div className="px-2 pt-3 pb-4 space-y-1 sm:px-3">
             <button
               onClick={() => handleScrollToSegment('presentacion')}
-              className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
+              className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-zinc-200 hover:text-blue-400 hover:bg-zinc-800/60 transition-all"
             >
               Presentación
             </button>
             <button
               onClick={() => handleScrollToSegment('expectativas')}
-              className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
+              className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-zinc-200 hover:text-blue-400 hover:bg-zinc-800/60 transition-all"
             >
               Expectativas
             </button>
             <button
               onClick={() => handleScrollToSegment('proyectos')}
-              className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
+              className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-zinc-200 hover:text-blue-400 hover:bg-zinc-800/60 transition-all"
             >
               Portafolio Proyectos
             </button>
             <button
               onClick={() => handleScrollToSegment('herramientas')}
-              className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
+              className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-zinc-200 hover:text-blue-400 hover:bg-zinc-800/60 transition-all"
             >
               Herramientas
             </button>

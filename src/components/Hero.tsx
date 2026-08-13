@@ -77,21 +77,33 @@ export default function Hero() {
 
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
-      case 'Cpu': return <Cpu className="w-6 h-6 text-blue-600" />;
-      case 'Database': return <Database className="w-6 h-6 text-blue-600" />;
-      case 'Workflow': return <Network className="w-6 h-6 text-blue-600" />;
-      case 'Sparkles': return <Sparkles className="w-6 h-6 text-blue-600" />;
-      default: return <BrainCircuit className="w-6 h-6 text-blue-600" />;
+      case 'Cpu': return <Cpu className="w-6 h-6 text-blue-400" />;
+      case 'Database': return <Database className="w-6 h-6 text-blue-400" />;
+      case 'Workflow': return <Network className="w-6 h-6 text-blue-400" />;
+      case 'Sparkles': return <Sparkles className="w-6 h-6 text-blue-400" />;
+      default: return <BrainCircuit className="w-6 h-6 text-blue-400" />;
     }
   };
 
-  // Button hover animations
-  const handleButtonHover = (e: React.MouseEvent<HTMLButtonElement>, action: 'enter' | 'leave') => {
+  // Button hover animations using GSAP
+  const handleButtonHover = (e: React.MouseEvent<HTMLElement>, action: 'enter' | 'leave') => {
     const target = e.currentTarget;
     if (action === 'enter') {
-      gsap.to(target, { scale: 1.05, filter: 'brightness(1.1)', duration: 0.2 });
+      gsap.to(target, { 
+        scale: 1.06, 
+        rotate: 1, 
+        boxShadow: '0 10px 28px rgba(37, 99, 235, 0.45)', 
+        duration: 0.3, 
+        ease: 'back.out(1.7)' 
+      });
     } else {
-      gsap.to(target, { scale: 1, filter: 'brightness(1)', duration: 0.2 });
+      gsap.to(target, { 
+        scale: 1, 
+        rotate: 0, 
+        boxShadow: '0 4px 18px rgba(37, 99, 235, 0.25)', 
+        duration: 0.3, 
+        ease: 'power2.out' 
+      });
     }
   };
 
@@ -114,8 +126,8 @@ export default function Hero() {
   return (
     <div ref={containerRef} className="pt-24 pb-16 scroll-mt-24">
       {/* BACKGROUND DECORATIVE GLOW ELEMENT */}
-      <div className="absolute top-0 right-0 w-full max-w-3xl h-[600px] bg-radial from-blue-100/40 via-sky-50/20 to-transparent -z-10 pointer-events-none rounded-full blur-3xl opacity-80" />
-      <div className="absolute top-1/4 left-10 w-96 h-96 bg-radial from-indigo-100/30 via-slate-50/10 to-transparent -z-10 pointer-events-none rounded-full blur-3xl opacity-60" />
+      <div className="absolute top-0 right-0 w-full max-w-3xl h-[600px] bg-radial from-blue-600/20 via-indigo-900/10 to-transparent -z-10 pointer-events-none rounded-full blur-3xl opacity-70" />
+      <div className="absolute top-1/4 left-10 w-96 h-96 bg-radial from-indigo-600/20 via-zinc-900/10 to-transparent -z-10 pointer-events-none rounded-full blur-3xl opacity-50" />
 
       {/* Section 1: Presentación */}
       <section id="presentacion" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -125,25 +137,25 @@ export default function Hero() {
             <div className="inline-flex items-center gap-2">
               <span 
                 ref={badgeRef}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold tracking-wider text-blue-700 bg-blue-100/80 rounded-full"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold tracking-wider text-blue-300 bg-blue-950/80 border border-blue-800/50 rounded-full"
               >
-                <BrainCircuit className="w-4 h-4 animate-pulse" />
+                <BrainCircuit className="w-4 h-4 animate-pulse text-blue-400" />
                 Estudiante de Desarrollo Web Moderno
               </span>
             </div>
 
             <h1 
               ref={titleRef}
-              className="font-display font-extrabold text-slate-900 tracking-tight text-4xl sm:text-5xl lg:text-6xl"
+              className="font-display font-extrabold text-white tracking-tight text-4xl sm:text-5xl lg:text-6xl"
             >
-              Potenciando la Web con <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500">Inteligencia Artificial</span>
+              Potenciando la Web con <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-300">Inteligencia Artificial</span>
             </h1>
 
             <p 
               ref={subtitleRef}
-              className="font-display font-semibold text-lg sm:text-xl text-slate-700 leading-relaxed max-w-2xl"
+              className="font-display font-semibold text-lg sm:text-xl text-zinc-300 leading-relaxed max-w-2xl"
             >
-              Hola, soy <span className="text-blue-700 underline decoration-blue-300 decoration-3 underline-offset-4">{CAMILO_INFO.name}</span>. 
+              Hola, soy <span className="text-blue-400 underline decoration-blue-500/80 decoration-3 underline-offset-4">{CAMILO_INFO.name}</span>. 
               Estoy cursando el Diplomado de Inteligencia Artificial Generativa.
             </p>
 
@@ -153,11 +165,11 @@ export default function Hero() {
               ref={bioRef}
               className="glass-panel p-6 sm:p-8 rounded-3xl"
             >
-              <h3 className="font-display font-bold text-slate-800 text-lg mb-3 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-blue-600" />
+              <h3 className="font-display font-bold text-white text-lg mb-3 flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-blue-400" />
                 Mi Enfoque de Estudio
               </h3>
-              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
                 {CAMILO_INFO.bio}
               </p>
 
@@ -166,14 +178,16 @@ export default function Hero() {
                   onClick={handleScrollToProjects}
                   onMouseEnter={(e) => handleButtonHover(e, 'enter')}
                   onMouseLeave={(e) => handleButtonHover(e, 'leave')}
-                  className="px-6 py-3.5 rounded-2xl bg-blue-600 text-white font-medium text-sm flex items-center gap-2 shadow-lg shadow-blue-500/10 cursor-pointer"
+                  className="gsap-btn px-6 py-3.5 rounded-2xl font-bold text-sm flex items-center gap-2 cursor-pointer shadow-lg"
                 >
                   Explorar Proyectos
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <a
                   href="#contacto"
-                  className="px-6 py-3.5 rounded-2xl bg-white/70 hover:bg-white text-slate-700 font-semibold text-sm border border-slate-200/60 hover:border-slate-300/80 transition-all shadow-sm flex items-center gap-2"
+                  onMouseEnter={(e) => handleButtonHover(e, 'enter')}
+                  onMouseLeave={(e) => handleButtonHover(e, 'leave')}
+                  className="gsap-btn-outline px-6 py-3.5 rounded-2xl font-semibold text-sm transition-all shadow-sm flex items-center gap-2"
                 >
                   Contáctame
                 </a>
@@ -185,38 +199,38 @@ export default function Hero() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-[380px] aspect-square rounded-full flex items-center justify-center p-4">
               {/* Spinning circular orbit graphic */}
-              <div className="absolute inset-0 rounded-full border border-dashed border-blue-200/70 animate-spin" style={{ animationDuration: '40s' }} />
-              <div className="absolute inset-4 rounded-full border border-dashed border-indigo-200/50 animate-spin" style={{ animationDuration: '25s', animationDirection: 'reverse' }} />
+              <div className="absolute inset-0 rounded-full border border-dashed border-blue-500/30 animate-spin" style={{ animationDuration: '40s' }} />
+              <div className="absolute inset-4 rounded-full border border-dashed border-indigo-500/20 animate-spin" style={{ animationDuration: '25s', animationDirection: 'reverse' }} />
               
               {/* Inner glowing core avatar card */}
-              <div className="ai-avatar w-full h-full rounded-2xl glass-panel-heavy p-8 flex flex-col justify-between relative shadow-xl border border-white">
+              <div className="ai-avatar w-full h-full rounded-2xl glass-panel-heavy p-8 flex flex-col justify-between relative shadow-2xl border border-zinc-700/80">
                 {/* Visual particles decor */}
-                <div className="absolute top-4 right-4 text-blue-200"><Sparkles className="w-8 h-8" /></div>
+                <div className="absolute top-4 right-4 text-blue-400/60"><Sparkles className="w-8 h-8" /></div>
                 
                 <div className="space-y-4">
-                  <div className="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600">
+                  <div className="w-14 h-14 rounded-2xl bg-blue-950/80 border border-blue-800/50 flex items-center justify-center text-blue-400">
                     <Layers className="w-8 h-8" />
                   </div>
                   <div className="space-y-1">
-                    <h4 className="font-display font-bold text-slate-800 text-xl">Diplomado IA</h4>
-                    <p className="text-xs font-mono text-blue-600 bg-blue-50 border border-blue-100/50 inline-block px-2 py-0.5 rounded-md">
+                    <h4 className="font-display font-bold text-white text-xl">Diplomado IA</h4>
+                    <p className="text-xs font-mono text-blue-300 bg-blue-950/80 border border-blue-800/50 inline-block px-2 py-0.5 rounded-md">
                       Materia: IA Generativa
                     </p>
                   </div>
                 </div>
 
-                <div className="space-y-3 pt-6 border-t border-slate-100">
-                  <div className="flex items-center justify-between text-xs text-slate-500">
+                <div className="space-y-3 pt-6 border-t border-zinc-800">
+                  <div className="flex items-center justify-between text-xs text-zinc-400">
                     <span>Estudiante</span>
-                    <span className="font-semibold text-slate-700">Camilo Caraballo</span>
+                    <span className="font-semibold text-zinc-200">Camilo Caraballo</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs text-slate-500">
+                  <div className="flex items-center justify-between text-xs text-zinc-400">
                     <span>Especialidad</span>
-                    <span className="font-semibold text-slate-700">Sistemas Cognitivos</span>
+                    <span className="font-semibold text-zinc-200">Sistemas Cognitivos</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs text-slate-500">
+                  <div className="flex items-center justify-between text-xs text-zinc-400">
                     <span>Año</span>
-                    <span className="font-mono text-slate-700 font-semibold">2026</span>
+                    <span className="font-mono text-zinc-200 font-semibold">2026</span>
                   </div>
                 </div>
               </div>
@@ -228,10 +242,10 @@ export default function Hero() {
       {/* Section 2: Expectativas */}
       <section id="expectativas" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-24">
         <div ref={expectationHeaderRef} className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-display font-extrabold text-slate-900 text-3xl sm:text-4xl tracking-tight">
-            Mis <span className="text-blue-600">Expectativas del Diplomado</span>
+          <h2 className="font-display font-extrabold text-white text-3xl sm:text-4xl tracking-tight">
+            Mis <span className="text-blue-400">Expectativas del Diplomado</span>
           </h2>
-          <p className="mt-4 text-slate-600">
+          <p className="mt-4 text-zinc-400">
             Aprender a integrar herramientas de Inteligencia Artificial avanzadas para transformar ideas disruptivas en productos reales y funcionales.
           </p>
         </div>
@@ -245,19 +259,19 @@ export default function Hero() {
               className="expectation-card glass-card p-6 rounded-2xl flex flex-col justify-between hover:scale-[1.03] duration-300"
             >
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                <div className="w-12 h-12 rounded-xl bg-blue-950/80 border border-blue-800/50 flex items-center justify-center text-blue-400">
                   {getIconComponent(exp.icon)}
                 </div>
-                <h3 className="font-display font-bold text-slate-800 text-lg leading-tight">
+                <h3 className="font-display font-bold text-white text-lg leading-tight">
                   {exp.title}
                 </h3>
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed">
                   {exp.description}
                 </p>
               </div>
               
-              <div className="pt-4 border-t border-slate-100 mt-4 flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50/50 px-2.5 py-1 rounded">
+              <div className="pt-4 border-t border-zinc-800/80 mt-4 flex items-center justify-between">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-300 bg-blue-950/80 border border-blue-800/50 px-2.5 py-1 rounded">
                   Expectativa {index + 1}
                 </span>
               </div>

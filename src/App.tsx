@@ -21,11 +21,11 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-slate-50 selection:bg-blue-600/10 selection:text-blue-600 antialiased overflow-x-hidden">
+    <div className="relative min-h-screen bg-black text-slate-100 selection:bg-blue-500/20 selection:text-blue-400 antialiased overflow-x-hidden">
       {/* Dynamic Ambient Background Sparkles */}
       <div className="fixed inset-0 -z-50 pointer-events-none overflow-hidden">
-        <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-100/30 blur-3xl" />
-        <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-sky-100/20 blur-3xl" />
+        <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/15 blur-3xl" />
+        <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-600/10 blur-3xl" />
       </div>
 
       {/* Global Navigation Header Bar */}

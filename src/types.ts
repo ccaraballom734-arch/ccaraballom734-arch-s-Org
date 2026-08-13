@@ -4,6 +4,8 @@ export interface Project {
   category: string;
   shortDescription: string;
   longDescription: string;
+  developmentProcess?: string;
+  processImages?: string[];
   technologies: string[];
   imageUrl: string;
   difficulty: 'Principiante' | 'Intermedio' | 'Avanzado';

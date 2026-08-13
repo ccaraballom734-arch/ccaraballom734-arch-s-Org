@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750" width="100%" height="100%" style="background-color: #ffffff;">
+  <defs>
+    <!-- Metallic & Carbon Gradients -->
+    <linearGradient id="carbon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c2c2c"/>
+      <stop offset="50%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+
+    <linearGradient id="chrome" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#e0e0e0"/>
+      <stop offset="50%" stop-color="#999999"/>
+      <stop offset="75%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#777777"/>
+    </linearGradient>
+
+    <linearGradient id="chainring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a3a3a"/>
+      <stop offset="50%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+
+    <radialGradient id="rotor-center" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#222222"/>
+      <stop offset="70%" stop-color="#111111"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+
+    <!-- Subtle Drop Shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Studio White Background -->
+  <rect width="1000" height="750" fill="#ffffff"/>
+
+  <!-- ================================================================= -->
+  <!-- CENTER BRANDING: SRAM RED LOGO -->
+  <!-- ================================================================= -->
+  <g transform="translate(335, 305) scale(1.05)" filter="url(#shadow)">
+    <!-- Slanted "RED" Logo -->
+    <path fill="#000000" d="M 0,65 L 28,-10 L 105,-10 C 135,-10 152,2 148,22 C 144,38 128,52 102,58 L 142,95 L 110,95 L 76,60 L 52,60 L 28,95 L 0,95 L 28,26 L 58,26 C 75,26 84,20 86,11 C 88,3 80,-2 65,-2 L 40,-2 Z M 165,65 L 193,-10 L 275,-10 L 268,10 L 218,10 L 208,32 L 250,32 L 243,52 L 201,52 L 191,75 L 243,75 L 236,95 L 152,95 Z M 285,65 L 313,-10 L 365,-10 C 410,-10 435,12 428,45 C 420,80 388,95 345,95 Z M 338,12 L 322,75 L 348,75 C 375,75 396,65 401,38 C 405,18 392,12 370,12 Z" transform="scale(0.68)"/>
+    <text x="290" y="52" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="16" fill="#000000">®</text>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- TOP-LEFT: CRANKSET WITH POWER METER & CARBON ARMS -->
+  <!-- ================================================================= -->
+  <g transform="translate(170, 210)" filter="url(#shadow)">
+    <!-- Outer Integrated 2x Chainring -->
+    <circle cx="0" cy="0" r="125" fill="none" stroke="#2a2a2a" stroke-width="10" stroke-dasharray="10, 4"/>
+    <circle cx="0" cy="0" r="115" fill="url(#chainring)" stroke="url(#chrome)" stroke-width="3"/>
+    <!-- Outer Ring Pin & Teeth Chamfer -->
+    <circle cx="0" cy="0" r="102" fill="none" stroke="#e0e0e0" stroke-width="8" stroke-dasharray="6, 6"/>
+    <!-- Inner Chainring -->
+    <circle cx="0" cy="0" r="80" fill="#151515" stroke="#555555" stroke-width="3"/>
+    <circle cx="0" cy="0" r="72" fill="none" stroke="#cccccc" stroke-width="5" stroke-dasharray="5, 5"/>
+    
+    <!-- Direct Mount Power Meter Spider (Integrated 8-bolt) -->
+    <polygon points="0,-72 23,-23 72,0 23,23 0,72 -23,23 -72,0 -23,-23" fill="#222222" stroke="#666666" stroke-width="2"/>
+    <circle cx="0" cy="0" r="32" fill="#111111" stroke="#444444" stroke-width="2"/>
+    <circle cx="0" cy="0" r="12" fill="#050505" stroke="url(#chrome)" stroke-width="2"/>
+
+    <!-- Left/Upper Crank Arm (Carbon Fiber) -->
+    <g transform="rotate(-38)">
+      <rect x="-20" y="-200" width="40" height="215" rx="18" fill="url(#carbon)" stroke="#444444" stroke-width="2"/>
+      <line x1="-10" y1="-185" x2="-10" y2="-25" stroke="#666666" stroke-width="1.5"/>
+      <line x1="10" y1="-185" x2="10" y2="-25" stroke="#222222" stroke-width="1.5"/>
+      <!-- RED Logo on Crank Arm -->
+      <text x="-48" y="-120" font-family="Arial, sans-serif" font-weight="900" font-size="13" letter-spacing="1" fill="#e0e0e0" transform="rotate(90 -48 -120)">-RED-</text>
+      <!-- Pedal Thread Bolt -->
+      <circle cx="0" cy="-182" r="9" fill="#222222" stroke="url(#chrome)" stroke-width="2"/>
+    </g>
+
+    <!-- Right/Lower Crank Arm -->
+    <g transform="rotate(142)">
+      <rect x="-20" y="-10" width="40" height="195" rx="18" fill="url(#carbon)" stroke="#444444" stroke-width="2"/>
+      <circle cx="0" cy="168" r="9" fill="#222222" stroke="url(#chrome)" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- TOP-CENTER: eTap BATTERY CHARGER -->
+  <!-- ================================================================= -->
+  <g transform="translate(380, 185)" filter="url(#shadow)">
+    <!-- Charger Base -->
+    <rect x="-48" y="-62" width="96" height="124" rx="20" fill="#1e1e1e" stroke="#444444" stroke-width="3"/>
+    <!-- Battery Dock Well -->
+    <rect x="-34" y="-50" width="68" height="60" rx="12" fill="#0a0a0a" stroke="#333333" stroke-width="2"/>
+    <!-- Gold Charging Pins -->
+    <circle cx="-14" cy="-24" r="3.5" fill="#e5c158"/>
+    <circle cx="14" cy="-24" r="3.5" fill="#e5c158"/>
+    <!-- Status LEDs (Red & Green) -->
+    <rect x="27" y="-36" width="5" height="12" rx="2.5" fill="#ff2222"/>
+    <rect x="27" y="-16" width="5" height="12" rx="2.5" fill="#22ff22"/>
+    <!-- SRAM Engraved Logo -->
+    <text x="-26" y="38" font-family="Arial, sans-serif" font-weight="bold" font-size="11" fill="#888888" letter-spacing="1">SRAM</text>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- TOP-RIGHT-CENTER: XG-1290 DOME CASSETTE (12-SPEED CHROME) -->
+  <!-- ================================================================= -->
+  <g transform="translate(585, 185)" filter="url(#shadow)">
+    <circle cx="0" cy="0" r="108" fill="none" stroke="#aaaaaa" stroke-width="6" stroke-dasharray="10, 4"/>
+    <circle cx="0" cy="0" r="95" fill="none" stroke="url(#chrome)" stroke-width="6" stroke-dasharray="9, 4"/>
+    <circle cx="0" cy="0" r="82" fill="none" stroke="#bbbbbb" stroke-width="5" stroke-dasharray="8, 4"/>
+    <circle cx="0" cy="0" r="70" fill="none" stroke="url(#chrome)" stroke-width="5" stroke-dasharray="7, 3"/>
+    <circle cx="0" cy="0" r="58" fill="none" stroke="#cccccc" stroke-width="4" stroke-dasharray="6, 3"/>
+    <circle cx="0" cy="0" r="46" fill="none" stroke="url(#chrome)" stroke-width="4" stroke-dasharray="5, 3"/>
+    <circle cx="0" cy="0" r="34" fill="none" stroke="#dddddd" stroke-width="3" stroke-dasharray="4, 2"/>
+    <circle cx="0" cy="0" r="22" fill="#222222" stroke="#666666" stroke-width="2"/>
+    <circle cx="0" cy="0" r="12" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- TOP-RIGHT: REAR DERAILLEUR (SRAM RED eTap AXS) -->
+  <!-- ================================================================= -->
+  <g transform="translate(830, 230)" filter="url(#shadow)">
+    <!-- eTap Battery Mount & Pack -->
+    <rect x="-68" y="-98" width="58" height="48" rx="8" fill="#1c1c1c" stroke="#555555" stroke-width="3"/>
+    <rect x="-62" y="-92" width="46" height="36" rx="5" fill="#111111"/>
+    <path d="M -62,-52 L -12,-82 L 8,-32 L -42,-2 Z" fill="#2c2c2c" stroke="#777777" stroke-width="3"/>
+    
+    <!-- Parallelogram Body with "Red" Accent -->
+    <path d="M -22,-32 L 28,-52 L 48,-12 L -2,8 Z" fill="url(#carbon)" stroke="#666666" stroke-width="3"/>
+    <text x="3" y="-22" font-family="Arial, sans-serif" font-weight="bold" font-size="12" fill="#ffffff">Red</text>
+
+    <!-- Pulley Cage & Orbit Fluid Damper -->
+    <path d="M 8,18 L 48,112 L 18,132 L -22,38 Z" fill="#151515" stroke="#444444" stroke-width="2"/>
+    <!-- Upper Pulley Wheel -->
+    <circle cx="13" cy="28" r="22" fill="none" stroke="#222222" stroke-width="4" stroke-dasharray="6,3"/>
+    <circle cx="13" cy="28" r="8" fill="#888888"/>
+    <!-- Lower Pulley Wheel (Magic Wheel) -->
+    <circle cx="43" cy="118" r="32" fill="none" stroke="#222222" stroke-width="5" stroke-dasharray="8,4"/>
+    <circle cx="43" cy="118" r="12" fill="#aaaaaa"/>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- BOTTOM-LEFT: FLAT MOUNT CALIPER & FLATTOP CHAIN -->
+  <!-- ================================================================= -->
+  <!-- Flattop Chain -->
+  <g transform="translate(180, 690) rotate(-70)">
+    <rect x="0" y="0" width="280" height="18" rx="9" fill="none" stroke="url(#chrome)" stroke-width="4" stroke-dasharray="14, 6"/>
+  </g>
+  <!-- Disc Brake Caliper -->
+  <g transform="translate(110, 600)" filter="url(#shadow)">
+    <path d="M -50,-40 C -30,-60 30,-60 50,-40 C 65,-20 60,30 40,50 C 20,60 -30,60 -50,40 C -65,20 -60,-20 -50,-40 Z" fill="url(#chrome)" stroke="#666666" stroke-width="3"/>
+    <rect x="-26" y="-26" width="52" height="52" rx="9" fill="#1e1e1e"/>
+    <text x="-13" y="5" font-family="Arial, sans-serif" font-weight="bold" font-size="12" fill="#ffffff">RED</text>
+    <circle cx="30" cy="-30" r="6" fill="#888888"/>
+    <circle cx="-30" cy="35" r="6" fill="#888888"/>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- BOTTOM-LEFT-CENTER: LEFT HRD SHIFT/BRAKE LEVER -->
+  <!-- ================================================================= -->
+  <g transform="translate(325, 600)" filter="url(#shadow)">
+    <!-- Ergonomic Rubber Hood -->
+    <path d="M -42,-132 C -22,-162 32,-152 42,-112 C 47,-82 32,-42 22,-12 C 12,18 -12,28 -32,18 C -42,8 -47,-32 -47,-82 Z" fill="#222222" stroke="#444444" stroke-width="3"/>
+    <!-- Texture Pattern on Hood -->
+    <path d="M -32,-122 C -12,-142 22,-137 32,-107" fill="none" stroke="#333333" stroke-width="8" stroke-dasharray="3,3"/>
+    <!-- Carbon Fiber Brake Lever Blade -->
+    <path d="M 12,-52 C 32,8 42,78 37,128 C 32,158 12,178 -3,168 C -13,158 7,118 2,58 C -3,8 -8,-32 12,-52 Z" fill="url(#carbon)" stroke="#555555" stroke-width="2"/>
+    <text x="8" y="98" font-family="Arial, sans-serif" font-weight="bold" font-size="11" fill="#e0e0e0" transform="rotate(75 8 98)">Red</text>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- BOTTOM-CENTER: CENTERLINE XR DISC ROTOR (160mm) -->
+  <!-- ================================================================= -->
+  <g transform="translate(500, 600)" filter="url(#shadow)">
+    <!-- Outer Stainless Steel Braking Track -->
+    <circle cx="0" cy="0" r="102" fill="none" stroke="url(#chrome)" stroke-width="18"/>
+    <!-- Cooling Slots & Cutouts -->
+    <circle cx="0" cy="0" r="102" fill="none" stroke="#ffffff" stroke-width="8" stroke-dasharray="4, 12"/>
+    <circle cx="0" cy="0" r="96" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="3, 15"/>
+    
+    <!-- 6-Bolt Black Aluminum Carrier Spider -->
+    <path d="M 0,-86 L 18,-30 L 75,-35 L 35,15 L 55,70 L 0,35 L -55,70 L -35,15 L -75,-35 L -18,-30 Z" fill="url(#rotor-center)" stroke="#444444" stroke-width="2"/>
+    
+    <!-- Center Lock / 6-Bolt Hub Ring -->
+    <circle cx="0" cy="0" r="32" fill="#111111" stroke="#888888" stroke-width="3"/>
+    <circle cx="0" cy="0" r="18" fill="none" stroke="url(#chrome)" stroke-width="3" stroke-dasharray="4,2"/>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- BOTTOM-RIGHT-CENTER: RIGHT HRD SHIFT/BRAKE LEVER -->
+  <!-- ================================================================= -->
+  <g transform="translate(675, 600)" filter="url(#shadow)">
+    <!-- Ergonomic Rubber Hood -->
+    <path d="M 42,-132 C 22,-162 -32,-152 -42,-112 C -47,-82 -32,-42 -22,-12 C -12,18 12,28 32,18 C 42,8 47,-32 47,-82 Z" fill="#222222" stroke="#444444" stroke-width="3"/>
+    <!-- Texture Pattern on Hood -->
+    <path d="M 32,-122 C 12,-142 -22,-137 -32,-107" fill="none" stroke="#333333" stroke-width="8" stroke-dasharray="3,3"/>
+    <!-- Carbon Fiber Brake Lever Blade -->
+    <path d="M -12,-52 C -32,8 -42,78 -37,128 C -32,158 -12,178 3,168 C 13,158 -7,118 -2,58 C 3,8 8,-32 -12,-52 Z" fill="url(#carbon)" stroke="#555555" stroke-width="2"/>
+    <text x="-25" y="98" font-family="Arial, sans-serif" font-weight="bold" font-size="11" fill="#e0e0e0" transform="rotate(-75 -25 98)">Red</text>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- BOTTOM-RIGHT: FRONT DERAILLEUR (SRAM RED eTap AXS YAW) -->
+  <!-- ================================================================= -->
+  <g transform="translate(860, 580)" filter="url(#shadow)">
+    <!-- eTap Battery & Motor Housing -->
+    <rect x="0" y="-82" width="52" height="56" rx="9" fill="#1e1e1e" stroke="#555555" stroke-width="3"/>
+    <path d="M -10,-32 L 40,-52 L 50,-12 L 0,8 Z" fill="#333333" stroke="#888888" stroke-width="2"/>
+    <!-- Parallelogram Linkage -->
+    <line x1="10" y1="0" x2="-20" y2="40" stroke="#777777" stroke-width="6"/>
+    <line x1="30" y1="-10" x2="0" y2="50" stroke="#777777" stroke-width="6"/>
+    <!-- Chrome Steel Yaw Cage -->
+    <path d="M -40,30 C -20,25 30,25 60,40 C 70,50 50,75 30,85 C -10,95 -50,85 -70,70 Z" fill="none" stroke="url(#chrome)" stroke-width="5"/>
+    <path d="M -30,45 C -10,40 25,40 50,55" fill="none" stroke="#aaaaaa" stroke-width="3"/>
+    <text x="16" y="-56" font-family="Arial, sans-serif" font-weight="bold" font-size="11" fill="#ffffff">Red</text>
+  </g>
+</svg>

@@ -79,17 +79,17 @@ export default function Footer() {
       gsap.to(icon, {
         y: -4,
         scale: 1.1,
-        color: '#2563eb', // Active blue
-        borderColor: 'rgba(37, 99, 235, 0.3)',
-        backgroundColor: 'rgba(37, 99, 235, 0.05)',
+        color: '#60a5fa', // Active blue
+        borderColor: 'rgba(59, 130, 246, 0.5)',
+        backgroundColor: 'rgba(37, 99, 235, 0.15)',
         duration: 0.2
       });
     } else {
       gsap.to(icon, {
         y: 0,
         scale: 1,
-        color: '#475569', // Slate-600
-        borderColor: 'rgba(226, 232, 240, 0.8)',
+        color: '#a1a1aa', // Zinc-400
+        borderColor: 'rgba(39, 39, 42, 0.8)',
         backgroundColor: 'transparent',
         duration: 0.2
       });
@@ -97,47 +97,47 @@ export default function Footer() {
   };
 
   return (
-    <footer ref={footerRef} id="contacto" className="bg-slate-50 border-t border-slate-200/50 pt-20 pb-12 scroll-mt-24 relative overflow-hidden">
+    <footer ref={footerRef} id="contacto" className="bg-black border-t border-zinc-800/80 pt-20 pb-12 scroll-mt-24 relative overflow-hidden text-zinc-300">
       {/* Background decorations */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-radial from-blue-100/20 to-transparent -z-10 pointer-events-none rounded-full blur-3xl opacity-60" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-radial from-blue-600/15 to-transparent -z-10 pointer-events-none rounded-full blur-3xl opacity-60" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start footer-animate">
           {/* Info Column (Left 5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             <div className="space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700">
-                <Sparkles className="w-3 h-3" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-950/80 text-blue-300 border border-blue-800/50">
+                <Sparkles className="w-3 h-3 text-blue-400" />
                 ¿Trabajamos Juntos?
               </span>
-              <h2 className="font-display font-extrabold text-slate-900 text-3xl tracking-tight">
-                Impulsemos el futuro <span className="text-blue-600">con Inteligencia Artificial</span>
+              <h2 className="font-display font-extrabold text-white text-3xl tracking-tight">
+                Impulsemos el futuro <span className="text-blue-400">con Inteligencia Artificial</span>
               </h2>
-              <p className="text-slate-600 text-sm leading-relaxed max-w-md">
+              <p className="text-zinc-400 text-sm leading-relaxed max-w-md">
                 Si buscas integrar agentes conversacionales, modelos multimodales de generación o construir experiencias web modernas y reactivas de alto impacto, ¡hablemos!
               </p>
             </div>
 
             {/* Direct contact info */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3 text-slate-700">
-                <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+              <div className="flex items-center gap-3 text-zinc-300">
+                <div className="w-9 h-9 rounded-lg bg-blue-950/80 border border-blue-800/50 flex items-center justify-center text-blue-400">
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider font-mono text-slate-400 font-semibold">Correo Electrónico</p>
-                  <a href={`mailto:${CAMILO_INFO.email}`} className="text-sm font-medium hover:text-blue-600 transition-colors">
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 font-semibold">Correo Electrónico</p>
+                  <a href={`mailto:${CAMILO_INFO.email}`} className="text-sm font-medium hover:text-blue-400 transition-colors">
                     {CAMILO_INFO.email}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 text-slate-700">
-                <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+              <div className="flex items-center gap-3 text-zinc-300">
+                <div className="w-9 h-9 rounded-lg bg-blue-950/80 border border-blue-800/50 flex items-center justify-center text-blue-400">
                   <MessageSquare className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider font-mono text-slate-400 font-semibold">Ubicación</p>
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 font-semibold">Ubicación</p>
                   <p className="text-sm font-medium">{CAMILO_INFO.location}</p>
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default function Footer() {
                 rel="noreferrer"
                 onMouseEnter={(e) => handleHoverSocial(e, 'enter')}
                 onMouseLeave={(e) => handleHoverSocial(e, 'leave')}
-                className="w-10 h-10 rounded-xl border border-slate-200/80 flex items-center justify-center text-slate-600 transition-all cursor-pointer"
+                className="w-10 h-10 rounded-xl border border-zinc-800 flex items-center justify-center text-zinc-400 transition-all cursor-pointer bg-zinc-900/50"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -161,7 +161,7 @@ export default function Footer() {
                 rel="noreferrer"
                 onMouseEnter={(e) => handleHoverSocial(e, 'enter')}
                 onMouseLeave={(e) => handleHoverSocial(e, 'leave')}
-                className="w-10 h-10 rounded-xl border border-slate-200/80 flex items-center justify-center text-slate-600 transition-all cursor-pointer"
+                className="w-10 h-10 rounded-xl border border-zinc-800 flex items-center justify-center text-zinc-400 transition-all cursor-pointer bg-zinc-900/50"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -170,18 +170,18 @@ export default function Footer() {
 
           {/* Contact Interactive Card Column (Right 7 cols) */}
           <div className="lg:col-span-7">
-            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white">
-              <h3 className="font-display font-bold text-slate-800 text-lg mb-6 flex items-center gap-2">
-                <Send className="w-4.5 h-4.5 text-blue-600" />
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-zinc-800 bg-zinc-900/70">
+              <h3 className="font-display font-bold text-white text-lg mb-6 flex items-center gap-2">
+                <Send className="w-4.5 h-4.5 text-blue-400" />
                 Enviar Mensaje Directo
               </h3>
 
               {submitted && (
-                <div className="mb-6 p-4 bg-green-50/80 border border-green-200 text-green-800 rounded-2xl flex items-start gap-2.5 animate-fade-in">
-                  <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+                <div className="mb-6 p-4 bg-emerald-950/60 border border-emerald-800 text-emerald-300 rounded-2xl flex items-start gap-2.5 animate-fade-in">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
                     <h4 className="font-semibold text-sm">¡Mensaje registrado con éxito!</h4>
-                    <p className="text-xs text-green-700 mt-1">Camilo recibirá tu mensaje en el almacenamiento consolidado de este portafolio.</p>
+                    <p className="text-xs text-emerald-400/90 mt-1">Camilo recibirá tu mensaje en el almacenamiento consolidado de este portafolio.</p>
                   </div>
                 </div>
               )}
@@ -189,7 +189,7 @@ export default function Footer() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label htmlFor="form-name" className="text-xs font-semibold text-slate-600">Nombre Completo</label>
+                    <label htmlFor="form-name" className="text-xs font-semibold text-zinc-300">Nombre Completo</label>
                     <input
                       id="form-name"
                       type="text"
@@ -197,12 +197,12 @@ export default function Footer() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Tu nombre"
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200/60 bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-950/80 focus:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 text-sm text-white placeholder-zinc-500 transition-all"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label htmlFor="form-email" className="text-xs font-semibold text-slate-600">Correo Electrónico</label>
+                    <label htmlFor="form-email" className="text-xs font-semibold text-zinc-300">Correo Electrónico</label>
                     <input
                       id="form-email"
                       type="email"
@@ -210,13 +210,13 @@ export default function Footer() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="tu@correo.com"
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200/60 bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-950/80 focus:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 text-sm text-white placeholder-zinc-500 transition-all"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="form-message" className="text-xs font-semibold text-slate-600">Mensaje / Consulta</label>
+                  <label htmlFor="form-message" className="text-xs font-semibold text-zinc-300">Mensaje / Consulta</label>
                   <textarea
                     id="form-message"
                     required
@@ -224,14 +224,24 @@ export default function Footer() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Describe tu idea, propuesta o consulta técnica..."
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200/60 bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-950/80 focus:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 text-sm text-white placeholder-zinc-500 transition-all resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:bg-blue-400 text-white font-semibold text-sm rounded-xl transition-all shadow-md shadow-blue-500/10 flex items-center justify-center gap-2 cursor-pointer"
+                  onMouseEnter={(e) => {
+                    if (!submitting) {
+                      gsap.to(e.currentTarget, { scale: 1.03, rotate: 0.5, duration: 0.25, ease: 'back.out(1.7)' });
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!submitting) {
+                      gsap.to(e.currentTarget, { scale: 1, rotate: 0, duration: 0.25, ease: 'power2.out' });
+                    }
+                  }}
+                  className="gsap-btn w-full py-3.5 px-4 font-extrabold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {submitting ? 'Enviando...' : (
                     <>
@@ -244,18 +254,18 @@ export default function Footer() {
 
               {/* Stored contacts reader option for dynamic demonstration */}
               {savedMessages.length > 0 && (
-                <div className="mt-8 pt-6 border-t border-slate-200/60">
-                  <h4 className="text-xs uppercase font-mono tracking-widest text-slate-400 font-semibold mb-3">
+                <div className="mt-8 pt-6 border-t border-zinc-800">
+                  <h4 className="text-xs uppercase font-mono tracking-widest text-zinc-400 font-semibold mb-3">
                     Historial de Mensajes Locales ({savedMessages.length})
                   </h4>
                   <div className="max-h-32 overflow-y-auto space-y-2 pr-2">
                     {savedMessages.map((msg) => (
-                      <div key={msg.id} className="p-3 bg-white/60 border border-slate-100 rounded-xl text-xs space-y-1">
-                        <div className="flex items-center justify-between text-slate-700">
+                      <div key={msg.id} className="p-3 bg-zinc-950/80 border border-zinc-800 rounded-xl text-xs space-y-1">
+                        <div className="flex items-center justify-between text-zinc-300">
                           <span className="font-semibold">{msg.name}</span>
-                          <span className="text-slate-400 text-[10px]">{msg.timestamp}</span>
+                          <span className="text-zinc-500 text-[10px]">{msg.timestamp}</span>
                         </div>
-                        <p className="text-slate-500 italic">"{msg.message}"</p>
+                        <p className="text-zinc-400 italic">"{msg.message}"</p>
                       </div>
                     ))}
                   </div>
@@ -266,11 +276,11 @@ export default function Footer() {
         </div>
 
         {/* Closing layout base bar */}
-        <div className="border-t border-slate-200/40 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
-          <p className="text-xs text-slate-500">
+        <div className="border-t border-zinc-800 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+          <p className="text-xs text-zinc-500">
             © 2026 {CAMILO_INFO.name}. Todos los derechos reservados.
           </p>
-          <p className="text-xs text-slate-400 flex items-center gap-1">
+          <p className="text-xs text-zinc-500 flex items-center gap-1">
             Diseñado con <Heart className="w-3 h-3 text-red-500 animate-pulse fill-red-500" /> para el Diplomado de IA Generativa.
           </p>
         </div>

@@ -40,13 +40,14 @@ export const PROJECTS: Project[] = [
     category: 'Despliegues',
     shortDescription: 'Sitio web activo y desplegado en producción en Netlify CDN con integración continua desde el repositorio de GitHub.',
     longDescription: 'Aplicación web completa activa en producción. Maquetada y construida utilizando las herramientas del diplomado de Inteligencia Artificial Generativa y desplegada en la infraestructura global de Netlify.',
+    developmentProcess: 'Se desarrolló mediante React, TypeScript y Tailwind CSS con Vite, estructurando un ecosistema modular interactivo con simuladores, comparativas de peso y un asistente técnico integrado vía webhooks.',
     technologies: ['Netlify CDN', 'GitHub Repos', 'Google AI Studio', 'Antigravity Code', 'Tailwind CSS'],
-    imageUrl: 'https://picsum.photos/seed/grupossra/800/600',
+    imageUrl: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=800&auto=format&fit=crop',
     difficulty: 'Avanzado',
     impact: 'Página web activa en producción accesible mundialmente con ejecución en tiempo real.',
     features: [
       'Despliegue automático y hospedaje en la infraestructura de Netlify.',
-      'Acceso directo ejecutable al hacer clic en Ver detalle ampliado.',
+      'Acceso directo ejecutable al hacer clic en Ver Proyecto.',
       'Optimizaciones de rendimiento y navegación fluida multidispositivo.'
     ],
     demoUrl: 'https://grupossramrutaaxs.netlify.app/',
@@ -54,12 +55,13 @@ export const PROJECTS: Project[] = [
   },
   {
     id: '1',
-    title: 'Workflow Automatizado: Push-to-Deploy con Netlify Edge',
+    title: 'Aplicacion Android',
     category: 'Despliegues',
     shortDescription: 'Configuración interactiva de un pipeline de despliegue continuo gatillado por commits remotos auditados en tiempo real.',
     longDescription: 'Este proyecto demuestra un flujo completo de CI/CD. Al hacer push a la rama de producción en GitHub, webhooks seguros notifican a Netlify, compilando una aplicación web optimizada y distribuyéndola instantáneamente a través de su CDN global con soporte de Edge Functions.',
+    developmentProcess: 'La app se desarrolló integrando bases de datos CSV, lógica de compatibilidad, una interfaz Flask/HTML y una versión independiente, con pruebas y ajustes para bicicletas, BB y OSPW.',
     technologies: ['GitHub Repos', 'Netlify CD/CI', 'Google AI Studio', 'Antigravity Code', 'Tailwind CSS'],
-    imageUrl: 'https://picsum.photos/seed/netlifydeploy/800/600',
+    imageUrl: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop',
     difficulty: 'Intermedio',
     impact: 'Automatiza el 100% de la fase de compilación del frontend, garantizando despliegues de parches de código en menos de 10 segundos.',
     features: [
@@ -73,38 +75,28 @@ export const PROJECTS: Project[] = [
   },
   {
     id: '2',
-    title: 'Plano Visual e Interacción con Google Stitch',
-    category: 'Diseño y Prototipado',
-    shortDescription: 'Planificación de interfaces de usuario y maquetación interactiva de flujos para herramientas de compilación ágil.',
-    longDescription: 'El diseño frontend de este portafolio y sus funcionalidades interactivas se concibieron interactuando en Google Stitch. Este prototipo facilitó la alineación entre las expectativas del diplomado, los requerimientos dinámicos del sistema y la definición de la interfaz visual.',
-    technologies: ['Google Stitch', 'Gemini Design', 'Mockups Dinámicos', 'UX/UI Wireframes'],
-    imageUrl: 'https://picsum.photos/seed/googlestitch/800/600',
-    difficulty: 'Principiante',
-    impact: 'Reduce en un 60% la fricción inicial para definir componentes CSS de alto impacto visual y layouts adaptables.',
+    title: 'Desarrollo con Antigravity',
+    category: 'Despliegues',
+    shortDescription: 'Panel de Control de Envíos WhatsApp para la distribución controlada de catálogos de promociones en lotes.',
+    longDescription: 'Aplicación web interactiva asistida para el control y envío de catálogos y promociones a través de WhatsApp Web. Incorpora un algoritmo de gestión de lotes (3 contactos por cada ventana de 5 minutos) con cuenta regresiva, estados de envío persistentes en localStorage, filtrado de contactos en tiempo real y alertas sonoras para proteger las cuentas contra bloqueos por spam.',
+    developmentProcess: `Descripción paso a paso de cómo se implementó Antigravity para automatizar y estructurar la creación de este catálogo:
+
+• Conexión remota por CDP (Chrome DevTools Protocol): En lugar de iniciar una nueva sesión desde cero (lo cual requeriría credenciales de acceso y manejo de captchas), Antigravity localizó el puerto de depuración activa en tu máquina (DevToolsActivePort) y se conectó directamente a tu sesión de Chrome abierta en la pestaña del B2B.
+• Interacción con los filtros de la interfaz: Utilizando scripts automatizados con Playwright, el agente inspeccionó los elementos seleccionados del DOM. Verificó si la marca Selle Italia estaba activa y, de no estarlo, simuló los clics necesarios en el menú de "Marcas" para abrir el dropdown y seleccionarla.
+• Control del Scroll Infinito: Para cargar todo el listado de productos, el script ejecutó un bucle que desplazaba el scroll del navegador al fondo (window.scrollTo). En cada iteración, monitoreó el número total de tarjetas de productos cargadas en el DOM hasta que el número se estabilizó en 47 productos.
+• Extracción y Depuración de Datos (Web Scraping): Una vez cargados todos los elementos en el navegador, se extrajo la información de cada producto (nombre, imagen, precio y disponibilidad). Mediante expresiones regulares en Python, se limpiaron los prefijos de las referencias y se filtraron los productos con stock disponible (reduciendo la lista a 29 productos con stock activo).
+• Generación de Plantilla HTML Dinámica: Se estructuró el catálogo en un archivo HTML con un diseño premium adaptado a la marca. Se integró una barra de control superior interactiva para buscar sillines en tiempo real mediante JavaScript, así como botones de acceso directo para descargar e imprimir.
+• Renderizado final a PDF: Finalmente, Antigravity inició un navegador Chrome headless en segundo plano para cargar el archivo HTML recién generado y realizar una impresión virtual limpia a PDF tamaño A4, configurando estilos @media print para ocultar automáticamente la barra de controles interactiva en el documento final.`,
+    technologies: ['WhatsApp Web API', 'JavaScript ES6+', 'Outfit Typography', 'LocalStorage', 'CSS3 Dark Theme'],
+    imageUrl: 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?q=80&w=800&auto=format&fit=crop',
+    difficulty: 'Intermedio',
+    impact: 'Optimiza el envío de catálogos comerciales reduciendo el riesgo de spam en un 90% mediante el control de frecuencia por lotes.',
     features: [
-      'Prototipado guiado basado en interacciones táctiles y responsive simuladas.',
-      'Extracción simplificada de paletas de colores y espaciados armoniosos.',
-      'Validación preliminar de accesibilidad y contraste según las guías del diplomado.'
+      'Gestión automática de temporizador anti-spam (5 minutos por cada lote de 3 envíos).',
+      'Edición dinámica del mensaje plantilla con actualización instantánea de hipervínculos.',
+      'Persistencia de contactos enviados e historial de progreso en almacenamiento local.'
     ],
-    demoUrl: '#',
-    githubUrl: '#'
-  },
-  {
-    id: '3',
-    title: 'Orquestación de Procesamiento de Código en Google Flow',
-    category: 'Automatización',
-    shortDescription: 'Sistema inteligente de control de calidad para auditar ramas y pull requests antes del merge final en GitHub.',
-    longDescription: 'Utilizando la lógica estructurada de Google Flow, se diseñó un flujo inteligente de backend que evalúa automáticamente la sintaxis, formatea archivos de código mediante linters y ejecuta pruebas unitarias para garantizar el estado verde ideal antes de activar la build estática.',
-    technologies: ['Google Flow', 'Gemini API', 'GitHub Webhooks', 'TypeScript', 'Vite'],
-    imageUrl: 'https://picsum.photos/seed/googleflow/800/600',
-    difficulty: 'Avanzado',
-    impact: 'Previene en un 95% la introducción de inconsistencias lógicas en el código del servidor y fallas de compilación en Netlify.',
-    features: [
-      'Disparador dinámico de análisis al crearse Pull Requests en GitHub.',
-      'Sugerencias inteligentes de refactorización automáticas redactadas por el modelo.',
-      'Conexión visual de diagramas y microservicios sin servidor.'
-    ],
-    demoUrl: '#',
+    demoUrl: '/propartes.html',
     githubUrl: '#'
   },
   {
@@ -113,8 +105,77 @@ export const PROJECTS: Project[] = [
     category: 'Diseño y Prototipado',
     shortDescription: 'Fase de planeación semántica y estructuración conceptual del portafolio utilizando modelos de lenguaje avanzados.',
     longDescription: 'Este proyecto detalla las bitácoras y esquemas generados por Gemini para la planeación metodológica del diplomado. Permitió definir los objetivos de aprendizaje, priorizar las secciones con estilo glassmorphism, y resolver problemas de diseño de arquitectura orientada a componentes modulares.',
+    developmentProcess: `CeramicSpeed Match – Especificación de Arquitectura UI/UX y Estructura de Aplicación
+
+Nombre de la Aplicación: CeramicSpeed Match
+Rol: Diseñador APP CeramicSpeed
+Enfoque de Diseño: Moderno, Técnico, Premium e Intuitivo con animaciones fluidas y estética Dark Minimalist.
+Paleta de Colores Oficial:
+• Negro Profundo / Fondo Oscuro: #000000 / #111111
+• Blanco Pureza / Textos Destacados: #FFFFFF
+• Gris Oscuro / Carbón (Contenedores/Tarjetas): #222222 / #333333
+• Gris Claro / Platino (Detalles/Bordes/Subtítulos): #F4F4F4 / #E5E5E5
+
+--------------------------------------------------
+1. MAPEO GENERAL DEL FLUJO DE DATOS Y PANTALLAS
+--------------------------------------------------
+[FLUJO BOTTOM BRACKET (BB)]
+• PÁGINA 1: Inicio / Selección [Logo CeramicSpeed] [ES|EN]
+• PÁGINA 2: Tipo Bici (Ruta/TT / MTB) -> Marca Bici (Specialized) -> Año (2016, 2017...)
+• PÁGINA 3: Seleccionar Bielas (SRAM DUB, Shimano, Campagnolo, Rotor)
+• PÁGINA 4: Resultado Bottom Bracket (Imagen, SKU 115424, Nombre/Descripción)
+
+[FLUJO OSPW]
+• PÁGINA 1: Inicio / Selección [Logo CeramicSpeed] [ES|EN]
+• PÁGINA 2: Selector Marca de Tensor -> Selector Tensor / Rear Derailleur
+• PÁGINA 3: Resultado OSPW (Imagen, SKU 113490, Nombre/Descripción)
+
+--------------------------------------------------
+2. TRES EJEMPLOS DE ESTRUCTURA E INTERFAZ UI/UX
+--------------------------------------------------
+PROPUESTA 1: Minimal Tech / Pure Precision (Navegación Táctica de Alta Claridad)
+Estructuras geométricas nítidas, esquinas rectas con radios micro-suaves (4px) y alta visibilidad de datos técnicos. Ideada para mecánicos, atletas y talleres boutique.
+• Cabecera Universal: Logotipo CeramicSpeed en #FFFFFF, selector [ES|EN] en esquina superior derecha.
+• Pantalla 1 (Home): Tarjetas táctiles [BOTTOM BRACKET] y [OSPW].
+• Pantalla 2 (BB): Toggle [Ruta/TT] vs [Montaña], desplegables marca/año con filtro interactivo.
+• Pantalla 3 (BB): Cuadrícula 2x2 para marcas de bielas (SRAM DUB, Shimano, Campagnolo, Rotor).
+• Pantalla 4 (BB): Resultado (SKU 115424, BB ALPHA for PF30 Shimano, render CAD 3D).
+• Pantalla 2 (OSPW): Desplegable Marca Tensor (SRAM ROAD, SHIMANO ROAD, etc.) y Tensor reactivo.
+• Pantalla 3 (OSPW): Resultado (SKU 113490, OSPW RS ALPHA for Shimano 9250/8150).
+
+PROPUESTA 2: Performance Dark Glass (Diseño de Cuerpos Curvos y Translucidez)
+Experiencia táctil moderna en smartphones, micro-animaciones, tarjetas opacidad #111111 (90%) y sombras suaves.
+• Cabecera Universal: Logotipo con brillo metálico + Switch de Idioma estilo cápsula flotante.
+• Pantalla 1 (Home): Botones flotantes de alto relieve táctil en #222222.
+• Pantalla 2 (BB): Selector segmentado dinámico + Wheel Pickers de marca y año.
+• Pantalla 3 (BB): Carousel horizontal de tarjetas interactivas de bielas.
+• Pantalla 4 (BB): Tarjeta de presentación con giro 360° 3D y especificaciones en Monospace.
+• Pantalla 2 (OSPW): Botones desplegables animados en cascada vertical.
+• Pantalla 3 (OSPW): Resultado (SKU 112937, OSPW X ALPHA for SRAM Eagle Transmission).
+
+PROPUESTA 3: Technical Split Dashboard (Paso a Paso Modular para Taller)
+Toma de decisiones guiada en pantalla dividida o formato modular con Breadcrumbs.
+• Cabecera Universal: Franja superior continua en #111111.
+• Pantalla 1 (Home): Split Screen (Arriba BOTTOM BRACKET, Abajo OSPW).
+• Pantalla 2 (BB): Panel superior (Disciplina), Panel inferior (Marca/Año/Estándar PressFit 30).
+• Pantalla 3 (BB): Botones de lista técnica con diámetro de eje (SRAM DUB 28.99mm, Shimano 24mm).
+• Pantalla 4 (BB): Panel comparativo de SKU e imagen con ficha técnica.
+• Pantalla 2 (OSPW): Selección de marca de grupo + Tensor con filtrado instantáneo.
+• Pantalla 3 (OSPW): Resultados agrupados por tecnología (5-Spoke vs ALPHA).
+
+--------------------------------------------------
+3. INTEGRACIÓN DE DATOS Y LÓGICA DEL SISTEMA (JSON)
+--------------------------------------------------
+Relación Bottom Bracket (BB):
+1. Página 2: Specialized -> 2016 -> Ruta/Tarmac => Standard = PressFit 30
+2. Página 3: Biela = Shimano
+3. Página 4: Cruce PF30 + Shimano + Road => SKU: 115424 | BB ALPHA for PF30 Shimano
+
+Relación OSPW:
+1. Página 2: SHIMANO ROAD => Tensor = Dura Ace RD-9250
+2. Página 3: Consulta JSON => SKU: 113490 (OSPW RS ALPHA) & SKU: 113488 (OSPW RS 5-Spoke)`,
     technologies: ['Gemini 1.5 Pro', 'Prompt Engineering', 'Product Management', 'JSON Schemas'],
-    imageUrl: 'https://picsum.photos/seed/geminiplan/800/600',
+    imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop',
     difficulty: 'Principiante',
     impact: 'Estableció una ruta de ejecución robusta libre de alucinaciones en un único día de planeamiento conceptual.',
     features: [
@@ -128,11 +189,12 @@ export const PROJECTS: Project[] = [
   {
     id: '5',
     title: 'Consola de Desarrollo Asistido: Google AI Studio & Antigravity',
-    category: 'Automatización',
-    shortDescription: 'Entorno de desarrollo de última generación que asiste la codificación, resolución de bugs e integración en Docker/Cloud Run.',
+    category: 'Despliegues',
+    shortDescription: 'Un agente orquestador coordina subagentes asíncronos que interactúan dinámicamente con la web mediante herramientas de navegación, extrayendo y acelerando el proceso para generar datos estructurados y validados.',
     longDescription: 'Implementación del entorno de desarrollo integrado asistido por el agente Antigravity de Google AI Studio. Este espacio provee detección y diagnóstico en tiempo real de errores de dependencias npm, optimizando dinámicamente el empaquetado final de Vite para hosting estático de alto contraste.',
+    developmentProcess: 'Mediante Antigravity, un agente autónomo navegó por una página web para extraer información de productos y convertirla automáticamente en un catálogo perfectamente estructurado.',
     technologies: ['Google AI Studio', 'Antigravity Workspace', 'Vite Bundler', 'TypeScript Compiler'],
-    imageUrl: 'https://picsum.photos/seed/aistudio/800/600',
+    imageUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop',
     difficulty: 'Avanzado',
     impact: 'Acelera las fases iterativas de programación de componentes en un 80% mitigando fatiga cognitiva.',
     features: [
@@ -140,7 +202,7 @@ export const PROJECTS: Project[] = [
       'Diagnósticos automáticos y precisos de dependencias e imports dañados.',
       'Alineación perfecta con la filosofía de diseño Minimalista y de Alto Impacto.'
     ],
-    demoUrl: '#',
+    demoUrl: '/selleitalia.html',
     githubUrl: '#'
   }
 ];

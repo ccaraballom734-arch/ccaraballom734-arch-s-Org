@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propartes - Panel de Control de Envíos WhatsApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09090b;
+            --card-bg: #18181b;
+            --primary: #da291c;
+            --primary-hover: #b91c1c;
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
+            --success: #22c55e;
+            --warning: #eab308;
+        }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-title h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .header-title p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success);
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+        
+        .main-container {
+            max-width: 1300px;
+            width: 100%;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+            flex-grow: 1;
+            box-sizing: border-box;
+        }
+        
+        .control-sidebar {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 30px;
+        }
+        
+        .control-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+        
+        .message-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .message-box label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        
+        .message-box textarea {
+            background-color: #09090b;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            padding: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.4;
+        }
+        
+        .message-box textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .timer-box {
+            background: rgba(218, 41, 28, 0.05);
+            border: 1px solid rgba(218, 41, 28, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .timer-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .timer-countdown {
+            font-size: 32px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--text);
+        }
+        
+        .timer-progress {
+            background: #27272a;
+            border-radius: 5px;
+            height: 6px;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .timer-bar {
+            background: var(--primary);
+            height: 100%;
+            width: 100%;
+            transition: width 1s linear;
+        }
+        
+        .timer-info {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .search-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .search-input {
+            flex-grow: 1;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 20px;
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .cards-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .contact-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-2px);
+            border-color: #3f3f46;
+        }
+        
+        .contact-card.sent {
+            border-color: rgba(34, 197, 94, 0.3);
+            background: linear-gradient(180deg, var(--card-bg) 0%, rgba(34, 197, 94, 0.02) 100%);
+        }
+        
+        .contact-card.sent .sent-badge {
+            display: inline-flex;
+        }
+        
+        .contact-card.blocked-timer {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .contact-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+        
+        .sent-badge {
+            display: none;
+            background-color: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .contact-phone {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0 0 18px 0;
+            font-family: monospace;
+        }
+        
+        .send-btn {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+        
+        .send-btn:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .send-btn.btn-sent {
+            background-color: #27272a;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+        
+        .send-btn.btn-sent:hover {
+            background-color: #3f3f46;
+            color: #ffffff;
+        }
+        
+        .footer-note {
+            text-align: center;
+            padding: 30px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <h1>Panel de Control de Envíos WhatsApp</h1>
+            <p>Distribución controlada del Catálogo de Promociones (Lotes de 3 cada 5 minutos)</p>
+        </div>
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-value" id="stats-total">0</div>
+                <div class="stat-label">Total Contactos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stats-sent" style="color: var(--success);">0</div>
+                <div class="stat-label">Enviados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stats-remaining" style="color: var(--warning);">0</div>
+                <div class="stat-label">Pendientes</div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="main-container">
+        <div class="control-sidebar">
+            <h2 class="control-title">Configuración</h2>
+            
+            <div class="message-box">
+                <label for="message-template">Mensaje a Enviar:</label>
+                <textarea id="message-template" oninput="updateMessageLinks()">Aprovecha antes de que vuelen! 🔥
+
+Dejo en el archivo adjunto nuestros descuentos exclusivos del 20% y 30% en productos seleccionados. 📁✨
+
+📩 Revisa las ofertas y escríbeme para apartar lo tuyo antes de que se agoten. ¿Cuál vas a llevarte</textarea>
+            </div>
+            
+            <div class="timer-box" id="timer-container" style="display: none;">
+                <div class="timer-title" id="timer-status">Lote Completado - Espera Activa</div>
+                <div class="timer-countdown" id="timer-display">05:00</div>
+                <div class="timer-progress">
+                    <div class="timer-bar" id="timer-bar"></div>
+                </div>
+                <div class="timer-info">
+                    Para proteger tu cuenta del baneo por spam, por favor espera a que finalice el contador para enviar el siguiente lote de 3 contactos.
+                </div>
+            </div>
+            
+            <div class="timer-box" style="background: rgba(34, 197, 94, 0.05); border-color: rgba(34, 197, 94, 0.2);">
+                <div class="timer-title" style="color: var(--success);">Lote Actual</div>
+                <div class="timer-countdown" id="lote-counter" style="color: var(--success);">0 / 3</div>
+                <div class="timer-info" style="color: var(--text-muted);">
+                    Contactos enviados en el lote de esta ventana de 5 minutos.
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-container">
+            <div class="search-row">
+                <input type="text" class="search-input" id="search-input" placeholder="Buscar por nombre o número..." oninput="filterContacts()">
+            </div>
+            
+            <div class="cards-list" id="cards-list">
+                <!-- Contact cards dynamically injected -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-note">
+        Propartes &copy; 2026. Panel local asistido de distribución de catálogos.
+    </div>
+
+    <script>
+        const rawContacts = [
+    {
+        "type": "phone",
+        "phone": "+573208188416",
+        "name": "ajgarciar62",
+        "raw": "+57 320 8188416 (ajgarciar62)"
+    },
+    {
+        "type": "phone",
+        "phone": "+573123057954",
+        "name": "Benjaman Benjaman",
+        "raw": "+57 312 3057954 (Benjaman Benjaman)"
+    },
+    {
+        "type": "phone",
+        "phone": "+573143417313",
+        "name": "Bicicletería Desvare Express Workshop",
+        "raw": "+57 314 3417313 (Bicicletería Desvare Express Workshop)"
+    },
+    {
+        "type": "phone",
+        "phone": "+573134089138",
+        "name": "Capital Bicis",
+        "raw": "+57 313 4089138 (Capital Bicis)"
+    },
+    {
+        "type": "phone",
+        "phone": "+573008749025",
+        "name": "César Sánchez Agudelo",
+        "raw": "+57 300 8749025 (César Sánchez Agudelo)"
+    },
+    {
+        "type": "phone",
+        "phone": "+573214514180",
+        "name": "",
+        "raw": "+57 321 4514180"
+    },
+    {
+        "type": "phone",
+        "phone": "+573124534715",
+        "name": "",
+        "raw": "+57 312 4534715"
+    },
+    {
+        "type": "phone",
+        "phone": "+573107863577",
+        "name": "",
+        "raw": "+57 310 7863577"
+    },
+    {
+        "type": "phone",
+        "phone": "+573138404575",
+        "name": "",
+        "raw": "+57 313 8404575"
+    },
+    {
+        "type": "phone",
+        "phone": "+573148135178",
+        "name": "",
+        "raw": "+57 314 8135178"
+    },
+    {
+        "type": "phone",
+        "phone": "+573011279906",
+        "name": "",
+        "raw": "+57 301 1279906"
+    },
+    {
+        "type": "phone",
+        "phone": "+573204029783",
+        "name": "",
+        "raw": "+57 320 4029783"
+    },
+    {
+        "type": "phone",
+        "phone": "+573105787245",
+        "name": "",
+        "raw": "+57 310 5787245"
+    },
+    {
+        "type": "phone",
+        "phone": "+573102559255",
+        "name": "",
+        "raw": "+57 310 2559255"
+    },
+    {
+        "type": "phone",
+        "phone": "+573108832816",
+        "name": "",
+        "raw": "+57 310 8832816"
+    },
+    {
+        "type": "phone",
+        "phone": "+573115613893",
+        "name": "",
+        "raw": "+57 311 5613893"
+    },
+    {
+        "type": "phone",
+        "phone": "+573182595553",
+        "name": "",
+        "raw": "+57 318 2595553"
+    },
+    {
+        "type": "phone",
+        "phone": "+573105061613",
+        "name": "",
+        "raw": "+57 310 5061613"
+    },
+    {
+        "type": "phone",
+        "phone": "+573147193758",
+        "name": "",
+        "raw": "+57 314 7193758"
+    },
+    {
+        "type": "phone",
+        "phone": "+573122957453",
+        "name": "",
+        "raw": "+57 312 2957453"
+    },
+    {
+        "type": "phone",
+        "phone": "+573205396128",
+        "name": "",
+        "raw": "+57 320 5396128"
+    },
+    {
+        "type": "phone",
+        "phone": "+573197069262",
+        "name": "",
+        "raw": "+57 319 7069262"
+    },
+    {
+        "type": "phone",
+        "phone": "+573124507060",
+        "name": "",
+        "raw": "+57 312 4507060"
+    },
+    {
+        "type": "phone",
+        "phone": "+573008665857",
+        "name": "",
+        "raw": "+57 300 8665857"
+    },
+    {
+        "type": "phone",
+        "phone": "+573023362428",
+        "name": "",
+        "raw": "+57 302 3362428"
+    },
+    {
+        "type": "phone",
+        "phone": "+573002095158",
+        "name": "Raul",
+        "raw": "+57 300 2095158 (Raul)"
+    },
+    {
+        "type": "phone",
+        "phone": "+573232896257",
+        "name": "",
+        "raw": "+57 323 2896257"
+    },
+    {
+        "type": "phone",
+        "phone": "+573114761063",
+        "name": "",
+        "raw": "+57 311 4761063"
+    },
+    {
+        "type": "phone",
+        "phone": "+573177928207",
+        "name": "",
+        "raw": "+57 317 7928207"
+    },
+    {
+        "type": "phone",
+        "phone": "+573108809052",
+        "name": "",
+        "raw": "+57 310 8809052"
+    },
+    {
+        "type": "phone",
+        "phone": "+573134241729",
+        "name": "",
+        "raw": "+57 313 4241729"
+    },
+    {
+        "type": "phone",
+        "phone": "+573154900530",
+        "name": "",
+        "raw": "+57 315 4900530"
+    },
+    {
+        "type": "phone",
+        "phone": "+573017564670",
+        "name": "",
+        "raw": "+57 301 7564670"
+    },
+    {
+        "type": "phone",
+        "phone": "+573155755986",
+        "name": "",
+        "raw": "+57 315 5755986"
+    },
+    {
+        "type": "phone",
+        "phone": "+573132665728",
+        "name": "",
+        "raw": "+57 313 2665728"
+    },
+    {
+        "type": "phone",
+        "phone": "+573204027659",
+        "name": "",
+        "raw": "+57 320 4027659"
+    },
+    {
+        "type": "phone",
+        "phone": "+573105741731",
+        "name": "",
+        "raw": "+57 310 5741731"
+    },
+    {
+        "type": "phone",
+        "phone": "+573146830365",
+        "name": "",
+        "raw": "+57 314 6830365"
+    },
+    {
+        "type": "phone",
+        "phone": "+573508194849",
+        "name": "",
+        "raw": "+57 350 8194849"
+    },
+    {
+        "type": "phone",
+        "phone": "+573107848067",
+        "name": "",
+        "raw": "+57 310 7848067"
+    },
+    {
+        "type": "phone",
+        "phone": "+573223068234",
+        "name": "",
+        "raw": "+57 322 3068234"
+    },
+    {
+        "type": "phone",
+        "phone": "+573057162937",
+        "name": "",
+        "raw": "+57 305 7162937"
+    },
+    {
+        "type": "phone",
+        "phone": "+573106952140",
+        "name": "",
+        "raw": "+57 310 6952140"
+    },
+    {
+        "type": "phone",
+        "phone": "+573123326301",
+        "name": "",
+        "raw": "+57 312 3326301"
+    },
+    {
+        "type": "phone",
+        "phone": "+573103005383",
+        "name": "",
+        "raw": "+57 310 3005383"
+    },
+    {
+        "type": "phone",
+        "phone": "+573195692950",
+        "name": "",
+        "raw": "+57 319 5692950"
+    },
+    {
+        "type": "phone",
+        "phone": "+573023300410",
+        "name": "",
+        "raw": "+57 302 3300410"
+    },
+    {
+        "type": "phone",
+        "phone": "+573046217095",
+        "name": "",
+        "raw": "+57 304 6217095"
+    },
+    {
+        "type": "phone",
+        "phone": "+573195902174",
+        "name": "",
+        "raw": "+57 319 5902174"
+    },
+    {
+        "type": "phone",
+        "phone": "+573194769542",
+        "name": "",
+        "raw": "+57 319 4769542"
+    },
+    {
+        "type": "phone",
+        "phone": "+573015799340",
+        "name": "",
+        "raw": "+57 301 5799340"
+    },
+    {
+        "type": "phone",
+        "phone": "+573224466513",
+        "name": "",
+        "raw": "+57 322 4466513"
+    },
+    {
+        "type": "phone",
+        "phone": "+573026637059",
+        "name": "",
+        "raw": "+57 302 6637059"
+    },
+    {
+        "type": "phone",
+        "phone": "+573118994032",
+        "name": "",
+        "raw": "+57 311 8994032"
+    },
+    {
+        "type": "phone",
+        "phone": "+573132336559",
+        "name": "",
+        "raw": "+57 313 2336559"
+    },
+    {
+        "type": "phone",
+        "phone": "+573214877046",
+        "name": "",
+        "raw": "+57 321 4877046"
+    },
+    {
+        "type": "phone",
+        "phone": "+573058109042",
+        "name": "",
+        "raw": "+57 305 8109042"
+    },
+    {
+        "type": "phone",
+        "phone": "+573108159868",
+        "name": "",
+        "raw": "+57 310 8159868"
+    },
+    {
+        "type": "phone",
+        "phone": "+573124291635",
+        "name": "",
+        "raw": "+57 312 4291635"
+    },
+    {
+        "type": "phone",
+        "phone": "+573162423880",
+        "name": "",
+        "raw": "+57 316 2423880"
+    },
+    {
+        "type": "phone",
+        "phone": "+573044830735",
+        "name": "",
+        "raw": "+57 304 4830735"
+    },
+    {
+        "type": "phone",
+        "phone": "+573196015882",
+        "name": "",
+        "raw": "+57 319 6015882"
+    },
+    {
+        "type": "phone",
+        "phone": "+573192593543",
+        "name": "",
+        "raw": "+57 319 2593543"
+    },
+    {
+        "type": "phone",
+        "phone": "+573156409400",
+        "name": "",
+        "raw": "+57 315 6409400"
+    },
+    {
+        "type": "phone",
+        "phone": "+573157723112",
+        "name": "",
+        "raw": "+57 315 7723112"
+    },
+    {
+        "type": "phone",
+        "phone": "+573219022455",
+        "name": "",
+        "raw": "+57 321 9022455"
+    },
+    {
+        "type": "phone",
+        "phone": "+573213393048",
+        "name": "",
+        "raw": "+57 321 3393048"
+    },
+    {
+        "type": "phone",
+        "phone": "+573142589613",
+        "name": "",
+        "raw": "+57 314 2589613"
+    },
+    {
+        "type": "phone",
+        "phone": "+573043780093",
+        "name": "",
+        "raw": "+57 304 3780093"
+    },
+    {
+        "type": "phone",
+        "phone": "+573138215311",
+        "name": "",
+        "raw": "+57 313 8215311"
+    },
+    {
+        "type": "phone",
+        "phone": "+573103770853",
+        "name": "",
+        "raw": "+57 310 3770853"
+    },
+    {
+        "type": "phone",
+        "phone": "+573115285235",
+        "name": "",
+        "raw": "+57 311 5285235"
+    },
+    {
+        "type": "phone",
+        "phone": "+573124897126",
+        "name": "",
+        "raw": "+57 312 4897126"
+    },
+    {
+        "type": "phone",
+        "phone": "+573204208167",
+        "name": "",
+        "raw": "+57 320 4208167"
+    },
+    {
+        "type": "phone",
+        "phone": "+573144912931",
+        "name": "",
+        "raw": "+57 314 4912931"
+    },
+    {
+        "type": "phone",
+        "phone": "+573143807465",
+        "name": "",
+        "raw": "+57 314 3807465"
+    },
+    {
+        "type": "phone",
+        "phone": "+573105612403",
+        "name": "",
+        "raw": "+57 310 5612403"
+    },
+    {
+        "type": "phone",
+        "phone": "+573223403401",
+        "name": "",
+        "raw": "+57 322 3403401"
+    },
+    {
+        "type": "phone",
+        "phone": "+573154322005",
+        "name": "",
+        "raw": "+57 315 4322005"
+    },
+    {
+        "type": "phone",
+        "phone": "+573123199833",
+        "name": "",
+        "raw": "+57 312 3199833"
+    },
+    {
+        "type": "phone",
+        "phone": "+573118379297",
+        "name": "",
+        "raw": "+57 311 8379297"
+    },
+    {
+        "type": "phone",
+        "phone": "+573177008919",
+        "name": "",
+        "raw": "+57 317 7008919"
+    },
+    {
+        "type": "phone",
+        "phone": "+573143301438",
+        "name": "",
+        "raw": "+57 314 3301438"
+    },
+    {
+        "type": "phone",
+        "phone": "+573103380169",
+        "name": "",
+        "raw": "+57 310 3380169"
+    },
+    {
+        "type": "phone",
+        "phone": "+573229072201",
+        "name": "",
+        "raw": "+57 322 9072201"
+    },
+    {
+        "type": "phone",
+        "phone": "+573126705027",
+        "name": "",
+        "raw": "+57 312 6705027"
+    },
+    {
+        "type": "phone",
+        "phone": "+573203428393",
+        "name": "",
+        "raw": "+57 320 3428393"
+    },
+    {
+        "type": "phone",
+        "phone": "+573115526245",
+        "name": "",
+        "raw": "+57 311 5526245"
+    },
+    {
+        "type": "phone",
+        "phone": "+573202932218",
+        "name": "",
+        "raw": "+57 320 2932218"
+    },
+    {
+        "type": "phone",
+        "phone": "+573152183778",
+        "name": "",
+        "raw": "+57 315 2183778"
+    },
+    {
+        "type": "phone",
+        "phone": "+573103111414",
+        "name": "",
+        "raw": "+57 310 3111414"
+    },
+    {
+        "type": "phone",
+        "phone": "+573017142872",
+        "name": "",
+        "raw": "+57 301 7142872"
+    },
+    {
+        "type": "phone",
+        "phone": "+573215802430",
+        "name": "",
+        "raw": "+57 321 5802430"
+    },
+    {
+        "type": "phone",
+        "phone": "+573103215946",
+        "name": "",
+        "raw": "+57 310 3215946"
+    },
+    {
+        "type": "phone",
+        "phone": "+573165754591",
+        "name": "",
+        "raw": "+57 316 5754591"
+    },
+    {
+        "type": "phone",
+        "phone": "+573182800767",
+        "name": "",
+        "raw": "+57 318 2800767"
+    },
+    {
+        "type": "phone",
+        "phone": "+573142992300",
+        "name": "",
+        "raw": "+57 314 2992300"
+    },
+    {
+        "type": "phone",
+        "phone": "+573178707124",
+        "name": "",
+        "raw": "+57 317 8707124"
+    },
+    {
+        "type": "phone",
+        "phone": "+573015250564",
+        "name": "",
+        "raw": "+57 301 5250564"
+    },
+    {
+        "type": "phone",
+        "phone": "+573123827430",
+        "name": "",
+        "raw": "+57 312 3827430"
+    },
+    {
+        "type": "phone",
+        "phone": "+573212686877",
+        "name": "",
+        "raw": "+57 321 2686877"
+    },
+    {
+        "type": "phone",
+        "phone": "+573182604923",
+        "name": "",
+        "raw": "+57 318 2604923"
+    },
+    {
+        "type": "phone",
+        "phone": "+573123218367",
+        "name": "",
+        "raw": "+57 312 3218367"
+    },
+    {
+        "type": "phone",
+        "phone": "+573138650583",
+        "name": "",
+        "raw": "+57 313 8650583"
+    },
+    {
+        "type": "phone",
+        "phone": "+573213449189",
+        "name": "",
+        "raw": "+57 321 3449189"
+    },
+    {
+        "type": "phone",
+        "phone": "+573104795383",
+        "name": "",
+        "raw": "+57 310 4795383"
+    },
+    {
+        "type": "phone",
+        "phone": "+573146962762",
+        "name": "",
+        "raw": "+57 314 6962762"
+    },
+    {
+        "type": "phone",
+        "phone": "+573213003354",
+        "name": "",
+        "raw": "+57 321 3003354"
+    },
+    {
+        "type": "phone",
+        "phone": "+573053791374",
+        "name": "",
+        "raw": "+57 305 3791374"
+    },
+    {
+        "type": "phone",
+        "phone": "+573243607111",
+        "name": "",
+        "raw": "+57 324 3607111"
+    },
+    {
+        "type": "phone",
+        "phone": "+573159175817",
+        "name": "",
+        "raw": "+57 315 9175817"
+    },
+    {
+        "type": "phone",
+        "phone": "+573159282859",
+        "name": "",
+        "raw": "+57 315 9282859"
+    },
+    {
+        "type": "phone",
+        "phone": "+573016529517",
+        "name": "",
+        "raw": "+57 301 6529517"
+    },
+    {
+        "type": "phone",
+        "phone": "+573209774971",
+        "name": "",
+        "raw": "+57 320 9774971"
+    },
+    {
+        "type": "phone",
+        "phone": "+573124746390",
+        "name": "",
+        "raw": "+57 312 4746390"
+    },
+    {
+        "type": "phone",
+        "phone": "+573142070855",
+        "name": "",
+        "raw": "+57 314 2070855"
+    },
+    {
+        "type": "phone",
+        "phone": "+573153706660",
+        "name": "",
+        "raw": "+57 315 3706660"
+    },
+    {
+        "type": "phone",
+        "phone": "+573124650261",
+        "name": "",
+        "raw": "+57 312 4650261"
+    },
+    {
+        "type": "phone",
+        "phone": "+573143325422",
+        "name": "",
+        "raw": "+57 314 3325422"
+    },
+    {
+        "type": "phone",
+        "phone": "+573112727205",
+        "name": "",
+        "raw": "+57 311 2727205"
+    },
+    {
+        "type": "phone",
+        "phone": "+573143649056",
+        "name": "",
+        "raw": "+57 314 3649056"
+    },
+    {
+        "type": "phone",
+        "phone": "+573154915868",
+        "name": "",
+        "raw": "+57 315 4915868"
+    },
+    {
+        "type": "phone",
+        "phone": "+573508115688",
+        "name": "",
+        "raw": "+57 350 8115688"
+    },
+    {
+        "type": "phone",
+        "phone": "+573165290164",
+        "name": "",
+        "raw": "+57 316 5290164"
+    },
+    {
+        "type": "phone",
+        "phone": "+573023271857",
+        "name": "",
+        "raw": "+57 302 3271857"
+    },
+    {
+        "type": "phone",
+        "phone": "+34673164507",
+        "name": "",
+        "raw": "+34 673 16 45 07"
+    },
+    {
+        "type": "phone",
+        "phone": "+573135283305",
+        "name": "",
+        "raw": "+57 313 5283305"
+    },
+    {
+        "type": "phone",
+        "phone": "+573163358842",
+        "name": "",
+        "raw": "+57 316 3358842"
+    },
+    {
+        "type": "phone",
+        "phone": "+573232909703",
+        "name": "",
+        "raw": "+57 323 2909703"
+    },
+    {
+        "type": "phone",
+        "phone": "+573138778299",
+        "name": "",
+        "raw": "+57 313 8778299"
+    },
+    {
+        "type": "phone",
+        "phone": "+573228720080",
+        "name": "",
+        "raw": "+57 322 8720080"
+    },
+    {
+        "type": "phone",
+        "phone": "+573114422629",
+        "name": "",
+        "raw": "+57 311 4422629"
+    },
+    {
+        "type": "phone",
+        "phone": "+573217015381",
+        "name": "",
+        "raw": "+57 321 7015381"
+    },
+    {
+        "type": "phone",
+        "phone": "+573128710546",
+        "name": "",
+        "raw": "+57 312 8710546"
+    },
+    {
+        "type": "phone",
+        "phone": "+573103494907",
+        "name": "",
+        "raw": "+57 310 3494907"
+    },
+    {
+        "type": "phone",
+        "phone": "+573134060256",
+        "name": "",
+        "raw": "+57 313 4060256"
+    },
+    {
+        "type": "phone",
+        "phone": "+573183505053",
+        "name": "",
+        "raw": "+57 318 3505053"
+    },
+    {
+        "type": "phone",
+        "phone": "+573114792610",
+        "name": "",
+        "raw": "+57 311 4792610"
+    },
+    {
+        "type": "phone",
+        "phone": "+573507203812",
+        "name": "",
+        "raw": "+57 350 7203812"
+    },
+    {
+        "type": "phone",
+        "phone": "+573043453870",
+        "name": "",
+        "raw": "+57 304 3453870"
+    },
+    {
+        "type": "phone",
+        "phone": "+573213508033",
+        "name": "",
+        "raw": "+57 321 3508033"
+    },
+    {
+        "type": "phone",
+        "phone": "+573002656704",
+        "name": "",
+        "raw": "+57 300 2656704"
+    },
+    {
+        "type": "phone",
+        "phone": "+573102890783",
+        "name": "",
+        "raw": "+57 310 2890783"
+    },
+    {
+        "type": "phone",
+        "phone": "+573015831024",
+        "name": "",
+        "raw": "+57 301 5831024"
+    },
+    {
+        "type": "phone",
+        "phone": "+573192555269",
+        "name": "",
+        "raw": "+57 319 2555269"
+    },
+    {
+        "type": "phone",
+        "phone": "+51997558342",
+        "name": "",
+        "raw": "+51 997 558 342"
+    },
+    {
+        "type": "phone",
+        "phone": "+573154545393",
+        "name": "",
+        "raw": "+57 315 4545393"
+    },
+    {
+        "type": "phone",
+        "phone": "+573138660200",
+        "name": "",
+        "raw": "+57 313 8660200"
+    },
+    {
+        "type": "phone",
+        "phone": "+573228498699",
+        "name": "",
+        "raw": "+57 322 8498699"
+    },
+    {
+        "type": "phone",
+        "phone": "+573197042021",
+        "name": "",
+        "raw": "+57 319 7042021"
+    },
+    {
+        "type": "phone",
+        "phone": "+573003943529",
+        "name": "",
+        "raw": "+57 300 3943529"
+    },
+    {
+        "type": "phone",
+        "phone": "+573185868078",
+        "name": "",
+        "raw": "+57 318 5868078"
+    },
+    {
+        "type": "phone",
+        "phone": "+573114819298",
+        "name": "",
+        "raw": "+57 311 4819298"
+    },
+    {
+        "type": "phone",
+        "phone": "+573224176936",
+        "name": "",
+        "raw": "+57 322 4176936"
+    },
+    {
+        "type": "phone",
+        "phone": "+573173827095",
+        "name": "",
+        "raw": "+57 317 3827095"
+    },
+    {
+        "type": "phone",
+        "phone": "+573229432261",
+        "name": "",
+        "raw": "+57 322 9432261"
+    },
+    {
+        "type": "phone",
+        "phone": "+573214819375",
+        "name": "",
+        "raw": "+57 321 4819375"
+    },
+    {
+        "type": "phone",
+        "phone": "+573058139572",
+        "name": "",
+        "raw": "+57 305 8139572"
+    },
+    {
+        "type": "phone",
+        "phone": "+573507177634",
+        "name": "",
+        "raw": "+57 350 7177634"
+    },
+    {
+        "type": "phone",
+        "phone": "+573138723993",
+        "name": "",
+        "raw": "+57 313 8723993"
+    }
+];
+        
+        // Load sent states from localStorage to persist progress
+        let sentContacts = JSON.parse(localStorage.getItem('whatsapp_sent_contacts') || '[]');
+        let currentLoteCount = parseInt(localStorage.getItem('whatsapp_current_lote_count') || '0');
+        let timerEndTimestamp = parseInt(localStorage.getItem('whatsapp_timer_end_timestamp') || '0');
+        let timerInterval = null;
+        
+        function init() {
+            document.getElementById('stats-total').textContent = rawContacts.length;
+            updateStats();
+            renderContacts();
+            checkActiveTimer();
+        }
+        
+        function updateStats() {
+            const sentCount = sentContacts.length;
+            const remainingCount = rawContacts.length - sentCount;
+            document.getElementById('stats-sent').textContent = sentCount;
+            document.getElementById('stats-remaining').textContent = remainingCount;
+            document.getElementById('lote-counter').textContent = `${currentLoteCount} / 3`;
+        }
+        
+        function renderContacts() {
+            const container = document.getElementById('cards-list');
+            container.innerHTML = '';
+            
+            const searchValue = document.getElementById('search-input').value.toLowerCase();
+            const message = document.getElementById('message-template').value;
+            const encodedMessage = encodeURIComponent(message);
+            
+            const isTimerBlocked = timerEndTimestamp > Date.now();
+            
+            rawContacts.forEach((contact, idx) => {
+                const name = contact.name || `Prospecto ${idx + 1}`;
+                const phone = contact.phone;
+                const isSent = sentContacts.includes(phone);
+                
+                if (name.toLowerCase().includes(searchValue) || phone.includes(searchValue)) {
+                    const card = document.createElement('div');
+                    card.className = `contact-card ${isSent ? 'sent' : ''} ${isTimerBlocked && !isSent ? 'blocked-timer' : ''}`;
+                    
+                    // Direct WhatsApp Web link
+                    const waLink = `https://web.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
+                    
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <h3 class="contact-name" title="${name}">${name}</h3>
+                            <span class="sent-badge">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                Enviado
+                            </span>
+                        </div>
+                        <p class="contact-phone">${phone}</p>
+                        <a href="${waLink}" target="_blank" class="send-btn ${isSent ? 'btn-sent' : ''}" onclick="markAsSent('${phone}')">
+                            ${isSent ? 'Reenviar Catálogo 📂' : 'Enviar Catálogo 📂'}
+                        </a>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+        }
+        
+        function markAsSent(phone) {
+            if (!sentContacts.includes(phone)) {
+                sentContacts.push(phone);
+                localStorage.setItem('whatsapp_sent_contacts', JSON.stringify(sentContacts));
+                
+                // Update lote count
+                currentLoteCount++;
+                localStorage.setItem('whatsapp_current_lote_count', currentLoteCount);
+                
+                if (currentLoteCount >= 3) {
+                    // Start 5 minute timer
+                    const duration = 5 * 60 * 1000; // 5 minutes
+                    timerEndTimestamp = Date.now() + duration;
+                    localStorage.setItem('whatsapp_timer_end_timestamp', timerEndTimestamp);
+                    startTimer(duration);
+                }
+            }
+            updateStats();
+            renderContacts();
+        }
+        
+        function checkActiveTimer() {
+            const now = Date.now();
+            if (timerEndTimestamp > now) {
+                const remaining = timerEndTimestamp - now;
+                startTimer(remaining);
+            }
+        }
+        
+        function startTimer(remainingMs) {
+            const timerContainer = document.getElementById('timer-container');
+            const timerDisplay = document.getElementById('timer-display');
+            const timerBar = document.getElementById('timer-bar');
+            
+            timerContainer.style.display = 'flex';
+            
+            // Block cards
+            renderContacts();
+            
+            const totalDuration = 5 * 60 * 1000;
+            
+            if (timerInterval) clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                const now = Date.now();
+                const timeLeft = timerEndTimestamp - now;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerContainer.style.display = 'none';
+                    currentLoteCount = 0;
+                    timerEndTimestamp = 0;
+                    localStorage.setItem('whatsapp_current_lote_count', 0);
+                    localStorage.setItem('whatsapp_timer_end_timestamp', 0);
+                    updateStats();
+                    renderContacts();
+                    // Play a alert sound
+                    try {
+                        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        const osc = audioCtx.createOscillator();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
+                        osc.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.3);
+                    } catch(e) {}
+                } else {
+                    const minutes = Math.floor(timeLeft / 60000);
+                    const seconds = Math.floor((timeLeft % 60000) / 1000);
+                    timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    const percent = (timeLeft / totalDuration) * 100;
+                    timerBar.style.width = `${percent}%`;
+                }
+            }, 1000);
+        }
+        
+        function filterContacts() {
+            renderContacts();
+        }
+        
+        function updateMessageLinks() {
+            renderContacts();
+        }
+        
+        window.onload = init;
+    </script>
+</body>
+</html>
